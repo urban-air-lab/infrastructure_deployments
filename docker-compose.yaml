@@ -1,6 +1,6 @@
 services:
   mosquitto:
-    image: eclipse-mosquitto:latest
+    image: eclipse-mosquitto
     container_name: mosquitto
     restart: always
     ports:
@@ -12,7 +12,7 @@ services:
       - ./mosquitto.conf:/mosquitto/config/mosquitto.conf
 
   influxdb:
-    image: influxdb:latest
+    image: influxdb
     container_name: influxdb
     restart: always
     ports:
