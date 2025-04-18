@@ -8,9 +8,9 @@ datasources:
     isDefault: true
     jsonData:
       version: Flux
-      organization: some_org
+      organization: urban-air-lab
       bucket: some_data
       defaultBucket: metrics
       httpMode: GET
     secureJsonData:
-      token: 4eYvsu8wZCJ6tKuE2sxvFHkvYFwSMVK0011hEEiojvejzpSaij86vYQomN_12au6eK-2MZ6Knr-Sax201y70w==
+      token: s-0ZETVqp_AT_sWMnRwfSBaG9_vbUvicrWzJJSv_IsCeIg8OGuIQXoTNnbNdRNb_yVKm-PKmZtE246PrQ8e8Rw==
