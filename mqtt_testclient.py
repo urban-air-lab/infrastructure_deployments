@@ -5,7 +5,7 @@ import random
 
 BROKER = "localhost"
 PORT = 1883
-TOPIC = "sensors/ual1"
+TOPIC = "sensors/test-data"
 
 
 def get_sensor_data():
