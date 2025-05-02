@@ -60,6 +60,8 @@ services:
       - iot
     volumes:
       - ./telegraf.conf:/etc/telegraf/telegraf.conf:ro
+    environment:
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=${DOCKER_INFLUXDB_INIT_ADMIN_TOKEN}
     depends_on:
       - mosquitto
       - influxdb
@@ -80,6 +82,7 @@ services:
     environment:
       - GF_SECURITY_ADMIN_USER=${GF_SECURITY_ADMIN_USER}
       - GF_SECURITY_ADMIN_PASSWORD=${GF_SECURITY_ADMIN_PASSWORD}
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=${DOCKER_INFLUXDB_INIT_ADMIN_TOKEN}
 
 networks:
   iot:
