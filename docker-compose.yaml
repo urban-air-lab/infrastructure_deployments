@@ -30,7 +30,7 @@ services:
     networks:
       - iot
     volumes:
-      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - ./config/mosquitto.conf:/mosquitto/config/mosquitto.conf
 
   influxdb:
     image: influxdb
@@ -59,7 +59,7 @@ services:
     networks:
       - iot
     volumes:
-      - ./telegraf.conf:/etc/telegraf/telegraf.conf:ro
+      - ./config/telegraf.conf:/etc/telegraf/telegraf.conf:ro
     environment:
       - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=${DOCKER_INFLUXDB_INIT_ADMIN_TOKEN}
     depends_on:
@@ -75,7 +75,7 @@ services:
     networks:
       - iot
     volumes:
-      - ./grafana-provisioning:/etc/grafana/provisioning
+      - ./config/grafana-provisioning:/etc/grafana/provisioning
       - grafana-data:/var/lib/grafana
     depends_on:
       - influxdb
