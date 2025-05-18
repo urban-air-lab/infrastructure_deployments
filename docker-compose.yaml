@@ -30,7 +30,7 @@ services:
     networks:
       - iot
     volumes:
-      - ./config/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - ./configs/mosquitto.conf:/mosquitto/config/mosquitto.conf
 
   influxdb:
     image: influxdb
@@ -43,7 +43,7 @@ services:
     volumes:
       - influxdb-data:/var/lib/influxdb2
       - influxdb-config:/etc/influxdb2
-      - ./init-influx.sh:/docker-entrypoint-initdb.d/init-influx.sh
+      - ./scripts/init-influx.sh:/docker-entrypoint-initdb.d/init-influx.sh
     environment:
       - DOCKER_INFLUXDB_INIT_MODE=setup
       - DOCKER_INFLUXDB_INIT_USERNAME=${DOCKER_INFLUXDB_INIT_USERNAME}
@@ -59,7 +59,7 @@ services:
     networks:
       - iot
     volumes:
-      - ./config/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+      - ./configs/telegraf.conf:/etc/telegraf/telegraf.conf:ro
     environment:
       - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=${DOCKER_INFLUXDB_INIT_ADMIN_TOKEN}
     depends_on:
@@ -75,7 +75,7 @@ services:
     networks:
       - iot
     volumes:
-      - ./config/grafana-provisioning:/etc/grafana/provisioning
+      - ./configs/grafana-provisioning:/etc/grafana/provisioning
       - grafana-data:/var/lib/grafana
     depends_on:
       - influxdb
