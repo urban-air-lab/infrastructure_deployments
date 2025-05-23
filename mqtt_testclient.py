@@ -4,15 +4,15 @@ import paho.mqtt.publish as publish
 import random
 
 
-
 def get_sensor_data():
     return {
         "temperature": random.randint(15, 25),
-        "humidity": random.randint(30, 60)
+        "humidity": random.randint(30, 60),
+        "timestamp": time.time()
     }
 
 
-def publish_sensor_data(topic:str) -> None:
+def publish_sensor_data(topic: str) -> None:
     data = get_sensor_data()
     payload = json.dumps(data)
 
