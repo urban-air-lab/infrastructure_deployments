@@ -1,8 +1,11 @@
+import os
 import time
 import json
 import paho.mqtt.publish as publish
 import random
+from dotenv import load_dotenv
 
+load_dotenv()
 
 def get_sensor_data():
     return {
@@ -19,8 +22,8 @@ def publish_sensor_data(topic: str) -> None:
     publish.single(
         topic=topic,
         payload=payload,
-        hostname="localhost",
-        port=1883
+        hostname=os.getenv("MQTT_SERVER"),
+        port=int(os.getenv("MQTT_PORT"))
     )
 
     print(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Published to {topic}: {payload}")

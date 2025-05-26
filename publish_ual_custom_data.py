@@ -1,3 +1,4 @@
+import os
 import sys
 from os import listdir
 import pandas as pd
@@ -5,6 +6,9 @@ import paho.mqtt.publish as publish
 import json
 import time
 import logging
+from dotenv import load_dotenv
+
+load_dotenv()
 
 logging.basicConfig(
     level=logging.INFO,
@@ -22,8 +26,8 @@ def publish_sensor_data(data: pd.DataFrame, topic: str) -> None:
     publish.single(
         topic=topic,
         payload=payload,
-        hostname="localhost",
-        port=1883
+        hostname=os.getenv("MQTT_SERVER"),
+        port=int(os.getenv("MQTT_PORT"))
     )
 
 
