@@ -29,8 +29,4 @@ def publish_sensor_data(topic: str) -> None:
 if __name__ == "__main__":
     while True:
         publish_sensor_data("sensors/test-data/test")
-        publish_sensor_data("sensors/calibration/ual-1")
-        publish_sensor_data("sensors/calibration/ual-2")
-        publish_sensor_data("sensors/measurement/ual-1")
-        publish_sensor_data("sensors/measurement/ual-2")
         time.sleep(60)
