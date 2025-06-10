@@ -23,7 +23,8 @@ def publish_sensor_data(topic: str) -> None:
         topic=topic,
         payload=payload,
         hostname=os.getenv("MQTT_SERVER"),
-        port=int(os.getenv("MQTT_PORT"))
+        port=int(os.getenv("MQTT_PORT")),
+        auth={'username': os.getenv("MQTT_USERNAME"), 'password': os.getenv("MQTT_PASSWORD")}
     )
 
     print(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Published to {topic}: {payload}")

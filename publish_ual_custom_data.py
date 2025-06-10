@@ -27,39 +27,27 @@ def publish_sensor_data(data: pd.DataFrame, topic: str) -> None:
         topic=topic,
         payload=payload,
         hostname=os.getenv("MQTT_SERVER"),
-        port=int(os.getenv("MQTT_PORT"))
+        port=int(os.getenv("MQTT_PORT")),
+        auth= {'username': os.getenv("MQTT_USERNAME"), 'password': os.getenv("MQTT_PASSWORD")}
     )
 
 
-attributes = ["CO",
-              "NO",
-              "NO2",
-              "O3",
-              "pm1",
-              "pm25",
-              "pm10",
-              "RAW_ADC_CO_W",
-              "RAW_ADC_CO_A",
-              "RAW_ADC_NO_W",
-              "RAW_ADC_NO_A",
-              "RAW_ADC_NO2_W",
-              "RAW_ADC_NO2_A",
-              "RAW_ADC_O3_W",
-              "RAW_ADC_O3_A",
-              "sht_humid",
-              "sht_temp",
-              "timestamp"]
 
-files = listdir("./data")
+def publish_ual_custom_data(file_path: str, topic: str):
+    files = listdir(file_path)
+    for file in files:
+        if ".log" not in file:
+            logging.warning(f"file is not a .log file: {file}")
+            continue
+        try:
+            data = pd.read_csv(f"./{file_path}/{file}")
+            publish_sensor_data(data, topic)
+            logging.info(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Published to {topic}: {file}")
+        except Exception as e:
+            logging.error(f"Could not publish data from file {file}", e)
 
-for file in files:
-    if ".log" not in file:
-        logging.warning(f"file is not a .log file: {file}")
-        continue
-    try:
-        topic = "sensors/measurement/ual-1"
-        data = pd.read_csv(f"./data/{file}")
-        publish_sensor_data(data[attributes], topic)
-        logging.info(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Published to {topic}: {file}")
-    except Exception as e:
-        logging.error(f"Could not publish data from file {file}", e)
+
+publish_ual_custom_data("./data/ual-1-calibration", topic="sensors/calibration/ual-1")
+publish_ual_custom_data("./data/ual-1-measurement", topic="sensors/measurement/ual-1")
+publish_ual_custom_data("./data/ual-3-calibration", topic="sensors/calibration/ual-3")
+publish_ual_custom_data("./data/ual-3-measurement", topic="sensors/measurement/ual-3")
