@@ -1,6 +1,6 @@
 services:
   lubw-client:
-    image: ghcr.io/urban-air-lab/lubw_controller:latest
+    image: ghcr.io/urban-air-lab/lubw_client:latest
     container_name: lubw-client
     restart: always
     ports:
