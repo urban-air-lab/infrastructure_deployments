@@ -3,6 +3,11 @@ from sklearn import datasets
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 from sklearn.model_selection import train_test_split
+import os
+
+
+os.environ['MLFLOW_TRACKING_USERNAME'] = "admin"
+os.environ['MLFLOW_TRACKING_PASSWORD'] = "password1234"
 
 inputs, targets = datasets.load_iris(return_X_y=True)
 x_train, x_test, y_train, y_test = train_test_split(inputs, targets, test_size=0.2, random_state=42)
