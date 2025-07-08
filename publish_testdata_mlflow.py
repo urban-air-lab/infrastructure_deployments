@@ -4,10 +4,12 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 from sklearn.model_selection import train_test_split
 import os
+from dotenv import load_dotenv
 
+load_dotenv()
 
-os.environ['MLFLOW_TRACKING_USERNAME'] = "tobi"
-os.environ['MLFLOW_TRACKING_PASSWORD'] = "password12345"
+os.environ['MLFLOW_TRACKING_USERNAME'] = os.getenv("MLFLOW_USERNAME")
+os.environ['MLFLOW_TRACKING_PASSWORD'] = os.getenv("MLFLOW_PASSWORD")
 
 inputs, targets = datasets.load_iris(return_X_y=True)
 x_train, x_test, y_train, y_test = train_test_split(inputs, targets, test_size=0.2, random_state=42)
