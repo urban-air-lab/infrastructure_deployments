@@ -28,6 +28,7 @@ def publish_sensor_data(data: pd.DataFrame, topic: str) -> None:
         payload=payload,
         hostname=os.getenv("MQTT_SERVER"),
         port=int(os.getenv("MQTT_PORT")),
+        qos=1,
         auth= {'username': os.getenv("MQTT_USERNAME"), 'password': os.getenv("MQTT_PASSWORD")}
     )
 
@@ -43,8 +44,10 @@ def publish_ual_custom_data(file_path: str, topic: str):
             data = pd.read_csv(f"./{file_path}/{file}")
             publish_sensor_data(data, topic)
             logging.info(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Published to {topic}: {file}")
+            time.sleep(1)
         except Exception as e:
             logging.error(f"Could not publish data from file {file}", e)
+
 
 
 publish_ual_custom_data("./data/ual-1-calibration", topic="sensors/calibration/ual-1")
