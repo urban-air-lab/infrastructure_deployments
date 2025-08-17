@@ -4,15 +4,17 @@ import json
 import paho.mqtt.publish as publish
 import random
 from dotenv import load_dotenv
+import pandas as pd
 
 load_dotenv()
 
+
 def get_sensor_data():
-    return {
-        "temperature": random.randint(15, 25),
-        "humidity": random.randint(30, 60),
-        "timestamp": time.time()
-    }
+    return pd.DataFrame(data={
+        "temperature": [random.randint(15, 25), random.randint(15, 25), random.randint(15, 25)],
+        "humidity": [random.randint(30, 60), random.randint(30, 60), random.randint(30, 60)],
+        "timestamp": [time.time(), time.time(), time.time()]
+    }, index=[0, 1, 3])
 
 
 def publish_sensor_data(topic: str) -> None:
