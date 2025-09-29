@@ -52,6 +52,7 @@ services:
             - frontend
         labels:
           - "traefik.http.routers.mlflow.rule=Host(`mlflow.${TRAEFIK_DOMAIN}`)"
+          - "traefik.http.services.mlflow.loadbalancer.server.port=5000" # unlike influx/ grafana image is self build and doesn´t expose port by default
 
 networks:
   ml:
