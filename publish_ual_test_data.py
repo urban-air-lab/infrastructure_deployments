@@ -19,7 +19,7 @@ def get_sensor_data():
 
 def publish_sensor_data(topic: str) -> None:
     data = get_sensor_data()
-    payload = json.dumps(data)
+    payload = data.to_json()
 
     publish.single(
         topic=topic,
