@@ -55,6 +55,7 @@ services:
 
 networks:
   ml:
+  frontend:
 
 volumes:
     dbdata:
