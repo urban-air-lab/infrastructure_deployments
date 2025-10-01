@@ -29,6 +29,9 @@ services:
       - "traefik.http.routers.traefik-dashboard.service=api@internal"
       - "traefik.http.routers.traefik-dashboard.entrypoints=web"
 
+      - "traefik.http.routers.traefik-dashboard.middlewares=whoami-https"
+      - "traefik.http.middlewares.traefik-dashboard-secure.redirectscheme.scheme=https"
+
       - "traefik.http.routers.traefik-dashboard-secure.rule=Host(`traefik.${TRAEFIK_DOMAIN}`)"
       - "traefik.http.routers.traefik-dashboard-secure.entrypoints=websecure"
       - "traefik.http.routers.traefik-dashboard-secure.service=api@internal"
