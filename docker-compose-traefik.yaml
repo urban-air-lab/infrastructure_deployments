@@ -16,6 +16,8 @@ services:
 
       --entrypoints.web.http.redirections.entrypoint.to=websecure
       --entrypoints.web.http.redirections.entrypoint.scheme=https
+    
+      --log.level=INFO
     restart: unless-stopped
     ports:
       - "80:80"
