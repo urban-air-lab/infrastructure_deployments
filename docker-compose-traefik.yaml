@@ -6,6 +6,7 @@ services:
       --api.dashboard=true
       --providers.docker=true
       --entrypoints.web.address=:80
+      --entrypoints.websecure.address=:443
       --certificatesresolvers.myresolver.acme.tlschallenge=false
       --certificatesresolvers.myresolver.acme.httpchallenge=true
       --certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web
