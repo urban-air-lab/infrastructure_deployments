@@ -2,8 +2,10 @@ services:
   traefik:
     image: traefik:3.5
     command:
-      --api.insecure=false 
+      --api.insecure=true 
+      --api.dashboard=true
       --providers.docker=true
+      --entrypoints.web.address=:80
     restart: unless-stopped
     ports:
       - "80:80"
@@ -11,6 +13,13 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - frontend
+    labels:
+      - "traefik.enable=true"
+
+      # Router for dashboard on http://traefik.localhost/dashboard
+      - "traefik.http.routers.traefik-dashboard.rule=Host(`traefik.localhost`)"
+      - "traefik.http.routers.traefik-dashboard.service=api@internal"
+      - "traefik.http.routers.traefik-dashboard.entrypoints=web"
 
 networks:
   frontend:
