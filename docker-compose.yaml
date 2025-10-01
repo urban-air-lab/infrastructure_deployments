@@ -13,7 +13,6 @@ services:
       - MQTT_PORT=${MQTT_PORT}
     networks:
       - iot
-      - frontend
     depends_on:
       - mosquitto
       - influxdb
