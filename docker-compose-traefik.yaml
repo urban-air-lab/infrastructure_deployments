@@ -7,11 +7,15 @@ services:
       --providers.docker=true
       --entrypoints.web.address=:80
       --entrypoints.websecure.address=:443
+      
       --certificatesresolvers.myresolver.acme.tlschallenge=false
       --certificatesresolvers.myresolver.acme.httpchallenge=true
       --certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web
       --certificatesresolvers.myresolver.acme.email=Marc.Golder@hs-heilbronn.de
       --certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json
+
+      --entrypoints.web.http.redirections.entrypoint.to=websecure
+      --entrypoints.web.http.redirections.entrypoint.scheme=https
     restart: unless-stopped
     ports:
       - "80:80"
@@ -28,9 +32,6 @@ services:
       - "traefik.http.routers.traefik-dashboard.rule=Host(`traefik.${TRAEFIK_DOMAIN}`)"
       - "traefik.http.routers.traefik-dashboard.service=api@internal"
       - "traefik.http.routers.traefik-dashboard.entrypoints=web"
-
-      - "traefik.http.routers.traefik-dashboard.middlewares=whoami-https"
-      - "traefik.http.middlewares.traefik-dashboard-secure.redirectscheme.scheme=https"
 
       - "traefik.http.routers.traefik-dashboard-secure.rule=Host(`traefik.${TRAEFIK_DOMAIN}`)"
       - "traefik.http.routers.traefik-dashboard-secure.entrypoints=websecure"
