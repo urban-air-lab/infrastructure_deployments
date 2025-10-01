@@ -51,9 +51,16 @@ services:
             - ml
             - frontend
         labels:
-          - "traefik.http.routers.mlflow.rule=Host(`mlflow.${TRAEFIK_DOMAIN}`)"
-          - "traefik.http.services.mlflow.loadbalancer.server.port=5000" # unlike influx/ grafana image is self build and doesn´t expose port by default
+          # unlike influx/ grafana image is self build and doesn´t expose port by default
+          - "traefik.http.services.mlflow.loadbalancer.server.port=5000"
 
+          - "traefik.http.routers.mlflow.rule=Host(`mlflow.${TRAEFIK_DOMAIN}`)"
+          - "traefik.http.routers.mlflow.entrypoints=web"
+
+          - "traefik.http.routers.mlflow-secure.rule=Host(`mlflow.${TRAEFIK_DOMAIN}`)"
+          - "traefik.http.routers.mlflow-secure.entrypoints=websecure"
+          - "traefik.http.routers.mlflow-secure.tls=true"
+          - "traefik.http.routers.mlflow-secure.tls.certresolver=myresolver"
 networks:
   ml:
   frontend:
