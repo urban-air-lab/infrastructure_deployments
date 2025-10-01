@@ -52,11 +52,6 @@ services:
       - "traefik.http.routers.influx.rule=Host(`influx.${TRAEFIK_DOMAIN}`)"
       - "traefik.http.routers.influx.entrypoints=web"
 
-      - "traefik.http.routers.influx-secure.rule=Host(`influx.${TRAEFIK_DOMAIN}`)"
-      - "traefik.http.routers.influx-secure.entrypoints=websecure"
-      - "traefik.http.routers.influx-secure.tls=true"
-      - "traefik.http.routers.influx-secure.tls.certresolver=myresolver"
-
   telegraf:
     image: telegraf
     container_name: telegraf
