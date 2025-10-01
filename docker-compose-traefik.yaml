@@ -17,7 +17,7 @@ services:
       - "traefik.enable=true"
 
       # Router for dashboard on http://traefik.localhost/dashboard
-      - "traefik.http.routers.traefik-dashboard.rule=Host(`traefik.localhost`)"
+      - "traefik.http.routers.traefik-dashboard.rule=Host(`traefik.${TRAEFIK_DOMAIN}`)"
       - "traefik.http.routers.traefik-dashboard.service=api@internal"
       - "traefik.http.routers.traefik-dashboard.entrypoints=web"
 
