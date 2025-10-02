@@ -5,8 +5,10 @@ services:
       --api.insecure=true 
       --api.dashboard=true
       --providers.docker=true
+      
       --entrypoints.web.address=:80
       --entrypoints.websecure.address=:443
+      --entrypoints.mqttsecure.address=:8883
       
       --certificatesresolvers.myresolver.acme.tlschallenge=false
       --certificatesresolvers.myresolver.acme.httpchallenge=true
