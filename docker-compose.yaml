@@ -31,6 +31,7 @@ services:
       - ./configs/mosquitto/:/mosquitto/config/
     labels:
       - "traefik.enable=true"
+      - "traefik.docker.network=frontend"
 
       # TCP router for MQTT over TLS
       - "traefik.tcp.routers.mqtt.rule=HostSNI(`mqtt.${TRAEFIK_DOMAIN}`)"
@@ -57,6 +58,9 @@ services:
       - DOCKER_INFLUXDB_INIT_BUCKET=test-data
       - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=${DOCKER_INFLUXDB_INIT_ADMIN_TOKEN}
     labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=frontend"
+
       - "traefik.http.routers.influx.rule=Host(`influx.${TRAEFIK_DOMAIN}`)"
       - "traefik.http.routers.influx.entrypoints=web"
 
@@ -100,6 +104,9 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=${GF_SECURITY_ADMIN_PASSWORD}
       - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=${DOCKER_INFLUXDB_INIT_ADMIN_TOKEN}
     labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=frontend"
+
       - "traefik.http.routers.grafana.rule=Host(`grafana.${TRAEFIK_DOMAIN}`)"
       - "traefik.http.routers.grafana.entrypoints=web"
 
