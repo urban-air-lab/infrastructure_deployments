@@ -33,9 +33,9 @@ services:
       - "traefik.enable=true"
 
       # TCP router for MQTT over TLS
-      - "traefik.tcp.services.mqtt.loadbalancer.server.port=1883"
       - "traefik.tcp.routers.mqtt.rule=HostSNI(`mqtt.${TRAEFIK_DOMAIN}`)"
       - "traefik.tcp.routers.mqtt.entrypoints=mqttsecure"
+      - "traefik.tcp.services.mqtt.loadbalancer.server.port=1883"
       - "traefik.tcp.routers.mqtt.tls.certresolver=myresolver"
 
   influxdb:
