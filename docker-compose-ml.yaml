@@ -53,7 +53,7 @@ services:
         labels:
           - "traefik.enable=true"
           - "traefik.docker.network=frontend"
-          -
+
           # unlike influx/ grafana image is self build and doesn´t expose port by default
           - "traefik.http.services.mlflow.loadbalancer.server.port=5000"
 
