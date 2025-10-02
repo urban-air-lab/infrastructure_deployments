@@ -21,9 +21,9 @@ services:
     image: eclipse-mosquitto
     container_name: mosquitto
     restart: always
-    ports:
-      - "1883:1883"
-      - "9001:9001"
+    expose:
+      - "8883"
+      - "9001"
     networks:
       - iot
       - frontend
@@ -35,7 +35,7 @@ services:
       # TCP router for MQTT over TLS
       - "traefik.tcp.routers.mqtt.rule=HostSNI(`mqtt.${TRAEFIK_DOMAIN}`)"
       - "traefik.tcp.routers.mqtt.entrypoints=mqttsecure"
-      - "traefik.tcp.services.mqtt.loadbalancer.server.port=1883"
+      - "traefik.tcp.services.mqtt.loadbalancer.server.port=8883"
       - "traefik.tcp.routers.mqtt.tls.certresolver=myresolver"
 
   influxdb:
