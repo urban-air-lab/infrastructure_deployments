@@ -2,8 +2,8 @@ services:
   traefik:
     image: traefik:3.5
     command:
-      --api.insecure=true 
-      --api.dashboard=true
+      --api.insecure=false 
+      --api.dashboard=false
       --providers.docker=true
       
       --entrypoints.web.address=:80
