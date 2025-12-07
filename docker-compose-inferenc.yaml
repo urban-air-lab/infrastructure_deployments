@@ -4,9 +4,9 @@ services:
     container_name: inference-server
     restart: always
     environment:
-      - LUBW_USERNAME=${LUBW_USERNAME}
-      - LUBW_PASSWORD=${LUBW_PASSWORD}
-      - LUBW_BASE_URL=${LUBW_BASE_URL}
+      - INFLUX_TOKEN=${DOCKER_INFLUXDB_INIT_ADMIN_TOKEN}
+      - INFLUX_ORG=urban-air-lab
+      - INFLUX_URL=https://influx.urbanairlab.hn
       - MQTT_USERNAME=${MQTT_USERNAME}
       - MQTT_PASSWORD=${MQTT_PASSWORD}
       - MQTT_SERVER=${MQTT_SERVER}
