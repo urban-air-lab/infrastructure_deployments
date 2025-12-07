@@ -19,3 +19,4 @@ services:
       - frontend
     labels:
       - "traefik.enable=true"
+      - "traefik.docker.network=ual_infrastructure_deployments_frontend"
