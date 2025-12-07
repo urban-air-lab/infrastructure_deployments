@@ -1,0 +1,21 @@
+services:
+  inference:
+    image: ghcr.io/urban-air-lab/inference-server:latest
+    container_name: inference-server
+    restart: always
+    environment:
+      - LUBW_USERNAME=${LUBW_USERNAME}
+      - LUBW_PASSWORD=${LUBW_PASSWORD}
+      - LUBW_BASE_URL=${LUBW_BASE_URL}
+      - MQTT_USERNAME=${MQTT_USERNAME}
+      - MQTT_PASSWORD=${MQTT_PASSWORD}
+      - MQTT_SERVER=${MQTT_SERVER}
+      - MQTT_PORT=${MQTT_PORT}
+      - MLFLOW_URL=${MLFLOW_URL
+      - MLFLOW_FLASK_SERVER_SECRET_KEY=${MLFLOW_FLASK_SERVER_SECRET_KEY}
+      - MLFLOW_USERNAME=${MLFLOW_USERNAME}
+      - MLFLOW_PASSWORD=${MLFLOW_PASSWORD}
+    networks:
+      - frontend
+    labels:
+      - "traefik.enable=true"
