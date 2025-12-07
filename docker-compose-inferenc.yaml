@@ -16,10 +16,7 @@ services:
       - MLFLOW_USERNAME=${MLFLOW_USERNAME}
       - MLFLOW_PASSWORD=${MLFLOW_PASSWORD}
     networks:
-      - frontend
-    labels:
-      - "traefik.enable=true"
-      - "traefik.docker.network=ual_infrastructure_deployments_frontend"
+      - iot
 
 networks:
-  frontend:
+  iot:
