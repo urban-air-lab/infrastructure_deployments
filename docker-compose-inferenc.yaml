@@ -5,8 +5,8 @@ services:
     restart: always
     environment:
       - INFLUX_TOKEN=${DOCKER_INFLUXDB_INIT_ADMIN_TOKEN}
-      - INFLUX_ORG=urban-air-lab
-      - INFLUX_URL=https://influx.urbanairlab.hn
+      - INFLUX_ORG=${INFLUX_ORG}
+      - INFLUX_URL=${INFLUX_URL}
       - MQTT_USERNAME=${MQTT_USERNAME}
       - MQTT_PASSWORD=${MQTT_PASSWORD}
       - MQTT_SERVER=${MQTT_SERVER}
