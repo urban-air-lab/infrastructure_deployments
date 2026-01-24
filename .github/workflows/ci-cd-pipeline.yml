@@ -15,7 +15,6 @@ jobs:
 
       - name: test
         run: |
-          echo ${{ github.actor }}
-          echo ${{ secrets.GITHUB_TOKEN }}
+          echo ssh --version
           
           
