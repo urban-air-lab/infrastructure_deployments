@@ -22,5 +22,7 @@ jobs:
           ls -la
           cd _PipelineMapping
           ls -la
+          cd urban-air-lab
+          ls -la
           
           
