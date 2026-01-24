@@ -1,0 +1,16 @@
+name: "CI/CD Pipeline"
+
+on:
+  push:
+    branches: [ "feature/ci-cd" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: test
+        run: |
+          echo "Hello World"
