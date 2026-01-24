@@ -14,3 +14,5 @@ jobs:
       - name: test
         run: |
           echo "Hello World"
+          pwd
+          ls -la
