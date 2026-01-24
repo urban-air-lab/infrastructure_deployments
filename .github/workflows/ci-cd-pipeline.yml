@@ -20,12 +20,7 @@ jobs:
           ls -la
           cd ..
           ls -la
-          cd _PipelineMapping
+          cd _temp
           ls -la
-          cd urban-air-lab
-          ls -la
-          cd infrastructure_deployments
-          ls -la
-          cat PipelineFolder.json
           
           
