@@ -15,6 +15,7 @@ jobs:
 
       - name: executing remote ssh commands
         run: |
+          mkdir /.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           ssh-keyscan -H {{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
           ssh -T ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
