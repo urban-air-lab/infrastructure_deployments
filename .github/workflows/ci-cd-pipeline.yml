@@ -16,3 +16,6 @@ jobs:
           echo "Hello World"
           pwd
           ls -la
+          cd ..
+          ls -la
+          
