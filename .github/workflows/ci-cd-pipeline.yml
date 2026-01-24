@@ -26,5 +26,6 @@ jobs:
           ls -la
           cd infrastructure_deployments
           ls -la
+          cat PipelineFolder.json
           
           
