@@ -21,4 +21,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             pwd
+            ls -la
+            echo "Hello Server"
+            docker images
           
