@@ -24,5 +24,7 @@ jobs:
           ls -la
           cd urban-air-lab
           ls -la
+          cd infrastructure_deployments
+          ls -la
           
           
