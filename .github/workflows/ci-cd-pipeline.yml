@@ -20,4 +20,7 @@ jobs:
           ls -la
           cd ..
           ls -la
+          cd _PipelineMapping
+          ls -la
+          
           
