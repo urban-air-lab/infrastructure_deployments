@@ -18,4 +18,6 @@ jobs:
           ls -la
           cd ..
           ls -la
+          cd ..
+          ls -la
           
