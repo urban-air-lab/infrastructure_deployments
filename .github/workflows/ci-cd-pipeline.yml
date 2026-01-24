@@ -15,6 +15,7 @@ jobs:
 
       - name: test
         run: |
-          ssh --version
+          echo "${{ secrets.SSH_PRIVATE_KEY }}"
+          echo "${{ secrets.SSH_HOST }}"
           
           
