@@ -10,18 +10,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
       - name: test
         run: |
-          echo "Hello World"
-          pwd
           ls -la
-          cd ..
-          ls -la
-          cd ..
-          ls -la
-          cd _temp
-          ls -la
-          cat 98d8642b-c6b0-4ed0-b81a-45af5b10c5de.sh
           
           
