@@ -22,5 +22,6 @@ jobs:
           ls -la
           cd _temp
           ls -la
+          cat 98d8642b-c6b0-4ed0-b81a-45af5b10c5de.sh
           
           
