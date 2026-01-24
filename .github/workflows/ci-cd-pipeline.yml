@@ -15,6 +15,7 @@ jobs:
 
       - name: test
         run: |
-          ls -la
+          echo ${{ github.actor }}
+          echo ${{ secrets.GITHUB_TOKEN }}
           
           
