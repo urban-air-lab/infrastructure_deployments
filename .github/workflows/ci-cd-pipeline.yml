@@ -15,6 +15,6 @@ jobs:
 
       - name: executing remote docker comands
         run:
-          docker --version
+          docker -H ssh://root@urbanairlab.hn ps
 
           
