@@ -15,6 +15,6 @@ jobs:
 
       - name: executing remote docker comands
         run:
-          docker -H ssh://root@91.99.65.22 ps
+          docker --version
 
           
