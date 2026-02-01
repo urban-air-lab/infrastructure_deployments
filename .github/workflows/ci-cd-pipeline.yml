@@ -10,22 +10,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-
-      - name: executing remote docker commands
-        uses: appleboy/ssh-action@master
+      - uses: webfactory/ssh-agent@v0.9.0
         with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            pwd
-            ls -la
-            echo "Hello Server"
-            docker images
+          ssh-private-key: ${{ secrets.DOCKER_SSH_KEY }}
 
-      - name: executing remote docker commands
-        run:
-          docker -H "ssh://root@urbanairlab.hn" ps
+      - name: Trust remote host key
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H docker.example.com >> ~/.ssh/known_hosts
+
+      - name: Docker via SSH
+        env:
+          DOCKER_HOST: ssh://root@docker.example.com
+        run: |
+          docker version
+          docker ps
           
