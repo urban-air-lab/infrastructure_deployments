@@ -13,11 +13,11 @@ jobs:
       - name: Trust remote host key
         run: |
           mkdir -p ~/.ssh
-          ssh-keyscan -H docker.example.com >> ~/.ssh/known_hosts
+          ssh-keyscan -H urbanairlab.hn >> ~/.ssh/known_hosts
 
       - name: Docker via SSH
         env:
-          DOCKER_HOST: ssh://root@docker.example.com
+          DOCKER_HOST: ssh://root@urbanairlab.hn
         run: |
           docker version
           docker ps
