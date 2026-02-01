@@ -13,15 +13,8 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: executing remote ssh commands using action
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            pwd
-            ls -la
-            echo "Hello Server"
-            docker images
+      - name: executing remote docker comands
+        run:
+          docker -H ssh://root@91.99.65.22 ps
+
           
