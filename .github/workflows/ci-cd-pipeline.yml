@@ -10,13 +10,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Trust remote host key
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Deploy MLFLow and Databases
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
           echo "${{ secrets.SSH_PRIVATE_KEY }}" >> ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           
-          docker -H ssh://root@urbanairlab.hn ps
+          docker -H ssh://root@urbanairlab.hn compose -f docker-compose-ml.yaml rm -f -s -v
+          docker -H ssh://root@urbanairlab.hn compose -f docker-compose-ml.yaml up -d
           
           
