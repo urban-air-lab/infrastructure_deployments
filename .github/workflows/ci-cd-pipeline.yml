@@ -17,7 +17,6 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" >> ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           
-          ls -la
-          cat ~/.ssh/known_hosts
+          docker -H ssh://root@urbanairlab.hn ps
           
           
