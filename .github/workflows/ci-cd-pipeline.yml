@@ -13,12 +13,8 @@ jobs:
       - name: Trust remote host key
         run: |
           mkdir -p ~/.ssh
-          ssh-keyscan -H urbanairlab.hn >> ~/.ssh/known_hosts
-
-      - name: Docker via SSH
-        env:
-          DOCKER_HOST: ssh://root@urbanairlab.hn
-        run: |
-          docker version
-          docker ps
+          echo "${{ env.SSH_KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
+          echo "${{ env.SSH_PRIVATE_KEY }}" >> ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          
           
