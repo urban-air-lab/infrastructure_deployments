@@ -16,5 +16,6 @@ jobs:
           echo "${{ env.SSH_KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
           echo "${{ env.SSH_PRIVATE_KEY }}" >> ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
+          cat ~/.ssh/known_hosts
           
           
