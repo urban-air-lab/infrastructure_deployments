@@ -12,11 +12,12 @@ jobs:
     steps:
       - name: Trust remote host key
         run: |
-          ls -la
           mkdir -p ~/.ssh
-          echo "${{ env.SSH_KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
-          echo "${{ env.SSH_PRIVATE_KEY }}" >> ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" >> ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
+          
+          ls -la
           cat ~/.ssh/known_hosts
           
           
