@@ -12,6 +12,7 @@ jobs:
     steps:
       - name: Trust remote host key
         run: |
+          ls -la
           mkdir -p ~/.ssh
           echo "${{ env.SSH_KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
           echo "${{ env.SSH_PRIVATE_KEY }}" >> ~/.ssh/id_rsa
