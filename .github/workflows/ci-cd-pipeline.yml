@@ -5,7 +5,7 @@ on:
     branches: [ "feature/ci-cd" ]
 
 jobs:
-  build:
+  deploy-ml-services:
 
     runs-on: ubuntu-latest
 
