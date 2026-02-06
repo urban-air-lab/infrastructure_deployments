@@ -1,0 +1,27 @@
+name: "Deploy Traefik Reverse Proxy"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy-traefik:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Deploy MLFLow and Databases
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" >> ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          
+          export TRAEFIK_DOMAIN=urbanairlab.hn
+          
+          docker -H ssh://root@urbanairlab.hn compose -f docker-compose-traefik.yaml rm -f -s -v
+          docker -H ssh://root@urbanairlab.hn compose -f docker-compose-traefik.yaml up -d --pull always
+          
+          
