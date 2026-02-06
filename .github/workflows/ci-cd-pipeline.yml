@@ -1,0 +1,42 @@
+name: "Deploy ML Flow"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy-ml-services:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Deploy MLFLow and Databases
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" >> ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          
+          cat > compose.env <<EOF
+          MLFLOW_URL="${{ secrets.MLFLOW_URL }}"
+          MLFLOW_FLASK_SERVER_SECRET_KEY="${{ secrets.MLFLOW_FLASK_SERVER_SECRET_KEY }}"
+          MLFLOW_USERNAME="${{ secrets.MLFLOW_USERNAME }}"
+          MLFLOW_PASSWORD="${{ secrets.MLFLOW_PASSWORD }}"
+          
+          AWS_ACCESS_KEY_ID="${{ secrets.AWS_ACCESS_KEY_ID }}"
+          AWS_SECRET_ACCESS_KEY="${{ secrets.AWS_SECRET_ACCESS_KEY }}"
+          
+          MYSQL_DATABASE="${{ secrets.MYSQL_DATABASE }}"
+          MYSQL_USER="${{ secrets.MYSQL_USER }}"
+          MYSQL_PASSWORD="${{ secrets.MYSQL_PASSWORD }}"
+          MYSQL_ROOT_PASSWORD="${{ secrets.MYSQL_ROOT_PASSWORD }}"
+          EOF
+          
+          cat compose.env
+          
+          docker -H ssh://root@urbanairlab.hn compose -f docker-compose-ml.yaml rm -f -s -v
+          docker -H ssh://root@urbanairlab.hn compose -f docker-compose-ml.yaml --env-file compose.env up -d
+          
+          
