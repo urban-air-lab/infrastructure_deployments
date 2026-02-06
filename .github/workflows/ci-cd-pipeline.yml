@@ -1,4 +1,4 @@
-name: "CI/CD Pipeline"
+name: "Deploy ML Flow"
 
 on:
   workflow_dispatch:
