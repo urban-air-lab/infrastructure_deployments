@@ -19,7 +19,10 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" >> ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           
+          
+          
           cat > compose.env <<EOF
+          TRAEFIK_DOMAIN=urbanairlab.hn
           MLFLOW_URL="${{ secrets.MLFLOW_URL }}"
           MLFLOW_FLASK_SERVER_SECRET_KEY="${{ secrets.MLFLOW_FLASK_SERVER_SECRET_KEY }}"
           MLFLOW_USERNAME="${{ secrets.MLFLOW_USERNAME }}"
