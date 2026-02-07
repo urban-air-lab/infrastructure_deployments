@@ -36,7 +36,7 @@ jobs:
           
           cat compose.env
           
-          docker -H ssh://root@urbanairlab.hn compose -f docker-compose-ml.yaml rm -f -s -v
-          docker -H ssh://root@urbanairlab.hn compose -f docker-compose-ml.yaml --env-file compose.env up -d --pull always
+          docker -H ssh://root@urbanairlab.hn compose -p ual_infrastructure_deployments  -f docker-compose-ml.yaml rm -f -s -v
+          docker -H ssh://root@urbanairlab.hn compose -p ual_infrastructure_deployments  -f docker-compose-ml.yaml --env-file compose.env up -d --pull always
           
           
