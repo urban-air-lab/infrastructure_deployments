@@ -21,7 +21,7 @@ jobs:
           
           export TRAEFIK_DOMAIN=urbanairlab.hn
           
-          docker -H ssh://root@urbanairlab.hn compose -f docker-compose-traefik.yaml rm -f -s -v
-          docker -H ssh://root@urbanairlab.hn compose -f docker-compose-traefik.yaml up -d --pull always
+          docker -H ssh://root@urbanairlab.hn compose -p ual_infrastructure_deployments -f docker-compose-traefik.yaml rm -f -s -v
+          docker -H ssh://root@urbanairlab.hn compose -p ual_infrastructure_deployments -f docker-compose-traefik.yaml up -d --pull always
           
           
