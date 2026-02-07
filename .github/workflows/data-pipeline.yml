@@ -1,10 +1,10 @@
-name: "Deploy ML Flow"
+name: "Deploy Influx Services"
 
 on:
   workflow_dispatch:
 
 jobs:
-  deploy-ml-services:
+  deploy-influx-services:
 
     runs-on: ubuntu-latest
 
