@@ -46,6 +46,8 @@ jobs:
               rsync -az --delete \
               ./configs \
               root@urbanairlab.hn:/opt/ual/
+          
+              ssh root@urbanairlab.hn "chmod 644 /opt/ual/configs/mosquitto/passwordfile"
 
 
       - name: Log in to GitHub Container Registry
