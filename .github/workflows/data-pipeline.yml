@@ -9,6 +9,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: test
+        run: |
+          ls - la ./configs/telegraf
+          cat ./configs/telegraf/telegraf.conf
+        
+
       - name: Checkout Code
         uses: actions/checkout@v3
 
