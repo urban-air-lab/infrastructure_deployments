@@ -19,7 +19,7 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" >> ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
 
-      - name: Create /opt/ual/credentials on server
+      - name: Create credentials on server
         run: |
             ssh root@urbanairlab.hn "mkdir -p /opt/ual/mlflow && cat > /opt/ual/mlflow/credentials <<'EOF'
             [mlflow]
@@ -28,7 +28,7 @@ jobs:
             admin_username = dummy
             admin_password = dummy12345678
             EOF
-            chmod 600 /opt/ual/credentials"
+            chmod 600 /opt/ual/mlflow/credentials"
 
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v3
