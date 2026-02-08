@@ -14,9 +14,10 @@ jobs:
 
       - name: test
         run: |
-          ls -la
-          ls ./configs/telegraf
-          cat ./configs/telegraf/telegraf.conf
+          echo "-------"
+          ls -lah /home/runner/work
+          echo "-------"
+          ls -lah "$PWD" 
 
       - name: create password file
         run: |
