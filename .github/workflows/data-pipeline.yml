@@ -20,12 +20,20 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
         
 
-      - name: create password file
+      - name: Create mosquitto password file
         run: |
-          echo "${{ secrets.MOSQUITTO_USER }}:${{ secrets.MOSQUITTO_PASSWORD }}" >> ./configs/mosquitto/passwordfile
+          sudo apt-get update
+          sudo apt-get install -y mosquitto-clients
+          
+          rm -f ./configs/mosquitto/passwordfile
+    
+          mosquitto_passwd -b -c ./configs/mosquitto/passwordfile \
+          "${{ secrets.MOSQUITTO_USER }}" "${{ secrets.MOSQUITTO_PASSWORD }}"
+
+          chmod 600 ./configs/mosquitto/passwordfile
 
 
-      - name: extend mosquitto config
+      - name: Extend mosquitto config
         run: |
           echo "" >> ./configs/mosquitto/mosquitto.conf
           echo "connection bridge_to_remote" >> ./configs/mosquitto/mosquitto.conf
@@ -35,11 +43,11 @@ jobs:
           echo "password ${{ secrets.HHN_FORWARD_PASSWORD }}" >> ./configs/mosquitto/mosquitto.conf
 
 
-      - name: copy configs to remote
+      - name: Copy configs to remote
         run: |
               ssh root@urbanairlab.hn "mkdir -p /opt/ual"
               rsync -az --delete \
-              ./docker-compose.yaml ./configs \
+              ./configs \
               root@urbanairlab.hn:/opt/ual/
 
 
