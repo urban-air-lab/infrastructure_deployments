@@ -74,8 +74,6 @@ services:
     container_name: telegraf
     hostname: telegraf
     restart: always
-    command:
-      - --config /etc/telegraf/
     networks:
       - iot
       - frontend
