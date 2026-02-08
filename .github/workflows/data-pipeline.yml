@@ -19,13 +19,13 @@ jobs:
 
       - name: extend mosquitto config
         run: |
+          echo "" >> ./configs/mosquitto/mosquitto.conf
           echo "connection bridge_to_remote" >> ./configs/mosquitto/mosquitto.conf
           echo "address 91.132.147.167:1883" >> ./configs/mosquitto/mosquitto.conf
           echo "topic sensors/# out 2" >> ./configs/mosquitto/mosquitto.conf
           echo "username ${{ secrets.HHN_FORWARD_USERNAME }}" >> ./configs/mosquitto/mosquitto.conf
-          echo "username ${{ secrets.HHN_FORWARD_PASSWORD }}" >> ./configs/mosquitto/mosquitto.conf
+          echo "password ${{ secrets.HHN_FORWARD_PASSWORD }}" >> ./configs/mosquitto/mosquitto.conf
           cat ./configs/mosquitto/mosquitto.conf
-          cat ./configs/telegraf.conf
 
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v3
