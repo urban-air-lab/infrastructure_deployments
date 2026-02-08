@@ -9,15 +9,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
       - name: test
         run: |
           ls -la
           ls ./configs/telegraf
           cat ./configs/telegraf/telegraf.conf
-        
-
-      - name: Checkout Code
-        uses: actions/checkout@v3
 
       - name: create password file
         run: |
