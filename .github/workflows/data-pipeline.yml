@@ -65,6 +65,11 @@ jobs:
           MQTT_SERVER="${{ secrets.MQTT_SERVER }}"
           MQTT_PORT="${{ secrets.MQTT_PORT }}"
           EOF
+          
+          pwd
+          ls -lah configs/telegraf || true
+          ls -lah configs/telegraf/telegraf.conf || true
+          test -f configs/telegraf/telegraf.conf && echo "OK: file exists" || (echo "MISSING: telegraf.conf is not a file" && exit 1)
         
           
           docker -H ssh://root@urbanairlab.hn compose -p ual_infrastructure_deployments  -f docker-compose.yaml rm -f -s -v
