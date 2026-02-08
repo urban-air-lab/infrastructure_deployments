@@ -17,6 +17,16 @@ jobs:
           ls -la
           echo "${{ secrets.MOSQUITTO_USER }}:${{ secrets.MOSQUITTO_PASSWORD }}" >> ./configs/mosquitto/passwordfile
 
+      - name: extend mosquitto config
+        run: |
+          echo "connection bridge_to_remote" >> ./configs/mosquitto/mosquitto.conf
+          echo "address 91.132.147.167:1883" >> ./configs/mosquitto/mosquitto.conf
+          echo "topic sensors/# out 2" >> ./configs/mosquitto/mosquitto.conf
+          echo "username ${{ secrets.HHN_FORWARD_USERNAME }}" >> ./configs/mosquitto/mosquitto.conf
+          echo "username ${{ secrets.HHN_FORWARD_PASSWORD }}" >> ./configs/mosquitto/mosquitto.conf
+          cat ./configs/mosquitto/mosquitto.conf
+          cat ./configs/telegraf.conf
+
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v3
         with:
@@ -50,9 +60,6 @@ jobs:
           MQTT_PASSWORD="${{ secrets.MQTT_PASSWORD }}"
           MQTT_SERVER="${{ secrets.MQTT_SERVER }}"
           MQTT_PORT="${{ secrets.MQTT_PORT }}"
-          
-          HHN_FORWARD_USERNAME="${{ secrets.HHN_FORWARD_USERNAME }}"
-          HHN_FORWARD_PASSWORD="${{ secrets.HHN_FORWARD_PASSWORD }}"
           EOF
           
           cat compose.env
