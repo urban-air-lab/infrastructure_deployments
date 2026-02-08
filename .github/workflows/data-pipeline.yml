@@ -11,7 +11,8 @@ jobs:
     steps:
       - name: test
         run: |
-          ls - la ./configs/telegraf
+          ls -la
+          ls ./configs/telegraf
           cat ./configs/telegraf/telegraf.conf
         
 
