@@ -74,11 +74,13 @@ services:
     container_name: telegraf
     hostname: telegraf
     restart: always
+    command:
+      - --config-directory /etc/telegraf
     networks:
       - iot
       - frontend
     volumes:
-      - ./configs/telegraf/:/etc/telegraf/
+      - ./configs/telegraf:/etc/telegraf
     environment:
       - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=${DOCKER_INFLUXDB_INIT_ADMIN_TOKEN}
       - MQTT_USERNAME=${MQTT_USERNAME}
