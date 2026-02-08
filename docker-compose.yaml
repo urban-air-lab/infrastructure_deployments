@@ -75,7 +75,7 @@ services:
     hostname: telegraf
     restart: always
     command:
-      - --config-directory /etc/telegraf
+      - --config /etc/telegraf/telegraf.conf
     networks:
       - iot
       - frontend
