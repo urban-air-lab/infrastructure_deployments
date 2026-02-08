@@ -29,8 +29,6 @@ jobs:
           mosquitto_passwd -b -c ./configs/mosquitto/passwordfile \
           "${{ secrets.MOSQUITTO_USER }}" "${{ secrets.MOSQUITTO_PASSWORD }}"
 
-          chmod 600 ./configs/mosquitto/passwordfile
-
 
       - name: Extend mosquitto config
         run: |
