@@ -1,7 +1,7 @@
 services:
     minio:
         restart: always
-        image: minio/minio
+        image: minio/minio:RELEASE.2025-09-07T16-13-09Z
         container_name: mlflow_s3
         ports:
             - "9000:9000"
@@ -17,7 +17,7 @@ services:
 
     db:
         restart: always
-        image: mysql/mysql-server
+        image: mysql/mysql-server:8.0.45-bookworm
         container_name: mlflow_db
         ports:
             - "3306:3306"

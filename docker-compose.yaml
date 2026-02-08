@@ -18,7 +18,7 @@ services:
       - influxdb
 
   mosquitto:
-    image: eclipse-mosquitto
+    image: eclipse-mosquitto:2.1.1-alpine
     container_name: mosquitto
     restart: always
     expose:
@@ -40,7 +40,7 @@ services:
       - "traefik.tcp.routers.mqtt.tls.certresolver=myresolver"
 
   influxdb:
-    image: influxdb
+    image: influxdb:2.8.0
     container_name: influxdb
     restart: always
     networks:
@@ -70,7 +70,7 @@ services:
       - "traefik.http.routers.influx-secure.tls.certresolver=myresolver"
 
   telegraf:
-    image: telegraf
+    image: telegraf:1.37
     container_name: telegraf
     hostname: telegraf
     restart: always
