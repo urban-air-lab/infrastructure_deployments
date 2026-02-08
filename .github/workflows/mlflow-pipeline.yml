@@ -25,8 +25,8 @@ jobs:
             [mlflow]
             default_permission = read
             database_uri = sqlite:///basic_auth.db
-            admin_username = "${{ MLFLOW_USERNAME }}"
-            admin_password = "${{ MLFLOW_PASSWORD }}"
+            admin_username = "${{ secrets.MLFLOW_USERNAME }}"
+            admin_password = "${{ secrets.MLFLOW_PASSWORD }}"
             EOF
             chmod 600 /opt/ual/mlflow/credentials"
 
