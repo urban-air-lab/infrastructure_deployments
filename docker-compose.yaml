@@ -28,7 +28,7 @@ services:
       - iot
       - frontend
     volumes:
-      - $PWD/configs/mosquitto/:/mosquitto/config/
+      - /opt/ual/configs/mosquitto:/mosquitto/config:ro
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=ual_infrastructure_deployments_frontend"
@@ -78,7 +78,7 @@ services:
       - iot
       - frontend
     volumes:
-      - $PWD/configs/telegraf/:/telegraf/
+      - /opt/ual/configs/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
     environment:
       - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=${DOCKER_INFLUXDB_INIT_ADMIN_TOKEN}
       - MQTT_USERNAME=${MQTT_USERNAME}
@@ -95,7 +95,7 @@ services:
       - iot
       - frontend
     volumes:
-      - $PWD/configs/grafana-provisioning:/etc/grafana/provisioning
+      - /opt/ual/configs/grafana-provisioning:/etc/grafana/provisioning:ro
       - grafana-data:/var/lib/grafana
     depends_on:
       - influxdb
