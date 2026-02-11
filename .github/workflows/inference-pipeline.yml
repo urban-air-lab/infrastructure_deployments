@@ -1,0 +1,44 @@
+name: "Deploy Inference Server"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy-traefik:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.PAT }}
+
+      - name: Deploy Inference Server
+        env:
+          MQTT_USERNAME: "${{ secrets.MQTT_USERNAME }}"
+          MQTT_PASSWORD: "${{ secrets.MQTT_PASSWORD }}"
+          MQTT_SERVER: "${{ secrets.MQTT_SERVER }}"
+          MQTT_PORT: "${{ secrets.MQTT_PORT }}"
+
+          INFLUX_URL: "${{ secrets.INFLUX_URL }}"
+          INFLUX_ORG: "${{ secrets.INFLUX_ORG }}"
+
+          DOCKER_INFLUXDB_INIT_USERNAME: "${{ secrets.DOCKER_INFLUXDB_INIT_USERNAME }}"
+          DOCKER_INFLUXDB_INIT_PASSWORD: "${{ secrets.DOCKER_INFLUXDB_INIT_PASSWORD }}"
+          DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: "${{ secrets.DOCKER_INFLUXDB_INIT_ADMIN_TOKEN }}"
+
+          MLFLOW_URL: "${{ secrets.MLFLOW_URL }}"
+          MLFLOW_FLASK_SERVER_SECRET_KEY: "${{ secrets.MLFLOW_FLASK_SERVER_SECRET_KEY }}"
+          MLFLOW_USERNAME: "${{ secrets.MLFLOW_USERNAME }}"
+          MLFLOW_PASSWORD: "${{ secrets.MLFLOW_PASSWORD }}"
+        run: |
+          docker -H ssh://root@urbanairlab.hn compose -p ual_infrastructure_deployments -f docker-compose-inferenc.yaml rm -f -s -v
+          docker -H ssh://root@urbanairlab.hn compose -p ual_infrastructure_deployments -f docker-compose-inferenc.yaml up -d --pull always
+          
+          
