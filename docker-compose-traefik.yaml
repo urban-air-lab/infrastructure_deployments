@@ -1,6 +1,6 @@
 services:
   traefik:
-    image: traefik:3.5
+    image: traefik:3.6.1
     command:
       --api.insecure=false 
       --api.dashboard=false
