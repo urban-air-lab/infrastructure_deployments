@@ -38,7 +38,7 @@ jobs:
           MLFLOW_USERNAME: "${{ secrets.MLFLOW_USERNAME }}"
           MLFLOW_PASSWORD: "${{ secrets.MLFLOW_PASSWORD }}"
         run: |
-          docker -H ssh://root@urbanairlab.hn compose -p ual_infrastructure_deployments -f docker-compose-inferenc.yaml rm -f -s -v
-          docker -H ssh://root@urbanairlab.hn compose -p ual_infrastructure_deployments -f docker-compose-inferenc.yaml up -d --pull always
+          docker -H ssh://root@urbanairlab.hn compose -p ual_infrastructure_deployments -f docker-compose-inference.yaml rm -f -s -v
+          docker -H ssh://root@urbanairlab.hn compose -p ual_infrastructure_deployments -f docker-compose-inference.yaml up -d
           
           
