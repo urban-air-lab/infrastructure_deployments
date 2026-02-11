@@ -82,6 +82,6 @@ jobs:
           MQTT_PORT: "${{ secrets.MQTT_PORT }}"
         run: |
           docker -H ssh://root@urbanairlab.hn compose -p ual_infrastructure_deployments  -f docker-compose.yaml rm -f -s -v
-          docker -H ssh://root@urbanairlab.hn compose -p ual_infrastructure_deployments  -f docker-compose.yaml --env-file compose.env up -d --pull always
+          docker -H ssh://root@urbanairlab.hn compose -p ual_infrastructure_deployments  -f docker-compose.yaml up -d --pull always
           
           
