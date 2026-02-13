@@ -61,6 +61,6 @@ jobs:
           MYSQL_ROOT_PASSWORD: "${{ secrets.MYSQL_ROOT_PASSWORD }}"
         run: |
           docker -H ssh://root@urbanairlab.hn compose -p ual_infrastructure_deployments  -f docker-compose-ml.yaml rm -f -s -v
-          docker -H ssh://root@urbanairlab.hn compose -p ual_infrastructure_deployments  -f docker-compose-ml.yaml up -d --pull always
+          docker -H ssh://root@urbanairlab.hn compose -p ual_infrastructure_deployments  -f docker-compose-ml.yaml up -d --pull always --build
           
           
