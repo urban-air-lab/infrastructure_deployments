@@ -36,6 +36,8 @@ jobs:
               rsync -az --delete \
               ./mlflow-docker \
               root@urbanairlab.hn:/opt/ual/
+              chmod 600 /opt/ual/mlflow-docker/Dockerfile
+              chmod 600 /opt/ual/mlflow-docker/requirements.txt
 
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v3
