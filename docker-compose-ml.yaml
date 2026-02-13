@@ -33,7 +33,7 @@ services:
 
     web:
         restart: always
-        build: /opt/ual/mlflow-docker
+        build: ./mlflow-docker
         image: mlflow_server
         container_name: mlflow_server
         depends_on:
