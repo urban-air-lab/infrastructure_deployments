@@ -84,4 +84,8 @@ jobs:
           docker -H ssh://root@urbanairlab.hn compose -p ual_infrastructure_deployments  -f docker-compose.yaml rm -f -s -v
           docker -H ssh://root@urbanairlab.hn compose -p ual_infrastructure_deployments  -f docker-compose.yaml up -d --pull always
           
+
+      - name: Delete Credentials
+        run: |
+            ssh root@urbanairlab.hn "rm -rf /opt/ual/configs"
           
