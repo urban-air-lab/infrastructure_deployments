@@ -51,7 +51,7 @@ jobs:
 
       - name: Delete Credentials
         run: |
-            ssh root@urbanairlab.hn "rm -rf /opt/ual/mlflow'
+            ssh root@urbanairlab.hn "rm -rf /opt/ual/mlflow"
 
           
           
