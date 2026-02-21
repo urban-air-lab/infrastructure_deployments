@@ -17,6 +17,7 @@ logging.basicConfig(
 
 mqtt_client: MQTTClient = MQTTClient(os.getenv("MQTT_SERVER"), int(os.getenv("MQTT_PORT")), os.getenv("MQTT_USERNAME"), os.getenv("MQTT_PASSWORD"))
 
+
 def publish_ual_custom_csv_data(file_path: str, topic: str) -> None:
     counter: int = 0
     if ".csv" not in file_path:
@@ -28,7 +29,7 @@ def publish_ual_custom_csv_data(file_path: str, topic: str) -> None:
         data["Zeitstempel"] = data["Zeitstempel"].astype(str)
 
         data: list = data.to_dict(orient="records")
-        for element in data[243324:]:
+        for element in data:
             mqtt_client.publish_data(element, topic)
             counter += 1
             if counter > 1000:
@@ -64,4 +65,4 @@ def publish_ual_custom_log_data(file_path: str, topic: str) -> None:
 
 
 
-publish_ual_custom_csv_data("./data/CSVExpMersy_klm2025-11-20_14-37.csv", topic="sensors/lubw-minute/DEBW015")
+publish_ual_custom_csv_data("./data/DEBW015_2026-02-13.csv", topic="sensors/lubw-minute/DEBW015")
