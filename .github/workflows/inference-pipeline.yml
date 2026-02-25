@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploy-traefik:
+  deploy-inference-server:
 
     runs-on: ubuntu-latest
 
@@ -46,6 +46,6 @@ jobs:
           MLFLOW_PASSWORD: "${{ secrets.MLFLOW_PASSWORD }}"
         run: |
           docker -H ssh://root@urbanairlab.hn compose -p ual_infrastructure_deployments -f docker-compose-inference.yaml rm -f -s -v
-          docker -H ssh://root@urbanairlab.hn compose -p ual_infrastructure_deployments -f docker-compose-inference.yaml up -d
+          docker -H ssh://root@urbanairlab.hn compose -p ual_infrastructure_deployments -f docker-compose-inference.yaml up -d --pull always
           
           
