@@ -21,11 +21,12 @@ jobs:
 
       - name: Create credentials
         run: |
-            echo "[mlflow]" >> /configs/mlflow/credentials
-            echo "default_permission = read" >> /configs/mlflow/credentials  
-            echo "database_uri = sqlite:///basic_auth.db" >> /configs/mlflow/credentials  
-            echo "admin_username = "${{ secrets.MLFLOW_USERNAME }}"" >> /configs/mlflow/credentials 
-            echo "admin_password = "${{ secrets.MLFLOW_PASSWORD }}"" >> /configs/mlflow/credentials 
+            mkdir "./configs/mlflow/"
+            echo "[mlflow]" >> ./configs/mlflow/credentials
+            echo "default_permission = read" >> ./configs/mlflow/credentials  
+            echo "database_uri = sqlite:///basic_auth.db" >> ./configs/mlflow/credentials  
+            echo "admin_username = "${{ secrets.MLFLOW_USERNAME }}"" >> ./configs/mlflow/credentials 
+            echo "admin_password = "${{ secrets.MLFLOW_PASSWORD }}"" >> ./configs/mlflow/credentials 
           
             cat credentials
 
