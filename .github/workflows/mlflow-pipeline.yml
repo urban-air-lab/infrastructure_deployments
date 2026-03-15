@@ -21,7 +21,7 @@ jobs:
 
       - name: Create credentials on server
         run: |
-            ssh root@urbanairlab.hn "mkdir -p /opt/ual/mlflow && cat > /opt/ual/mlflow/credentials" <<EOF
+            ssh root@urbanairlab.hn "mkdir -p /opt/ual/mlflow && cat > /opt/ual/mlflow/credentials.txt" <<EOF
             [mlflow]
             default_permission = read
             database_uri = sqlite:///basic_auth.db
