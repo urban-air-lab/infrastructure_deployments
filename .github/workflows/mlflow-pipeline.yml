@@ -19,16 +19,24 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" >> ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
 
-      - name: Create credentials on server
+      - name: Create credentials
         run: |
-            ssh root@urbanairlab.hn "mkdir -p /opt/ual/mlflow && cat > /opt/ual/mlflow/credentials.txt" <<EOF
-            [mlflow]
-            default_permission = read
-            database_uri = sqlite:///basic_auth.db
-            admin_username = "${{ secrets.MLFLOW_USERNAME }}"
-            admin_password = "${{ secrets.MLFLOW_PASSWORD }}"
-            EOF
-            chmod 600 /opt/ual/mlflow/credentials"         
+            echo "[mlflow]" >> /configs/mlflow/credentials
+            echo "default_permission = read" >> /configs/mlflow/credentials  
+            echo "database_uri = sqlite:///basic_auth.db" >> /configs/mlflow/credentials  
+            echo "admin_username = "${{ secrets.MLFLOW_USERNAME }}"" >> /configs/mlflow/credentials 
+            echo "admin_password = "${{ secrets.MLFLOW_PASSWORD }}"" >> /configs/mlflow/credentials 
+          
+            cat credentials
+
+      - name: Copy config to remote
+        run: |
+              ssh root@urbanairlab.hn "mkdir -p /opt/ual/mlflow"
+              rsync -az --delete \
+              ./configs/mlflow/ \
+              root@urbanairlab.hn:/opt/ual/
+          
+              ssh root@urbanairlab.hn "chmod 644 /opt/ual/configs/mlflow/credentials"
 
       - name: Deploy MLFLow and Databases
         env:
