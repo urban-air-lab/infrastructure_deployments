@@ -50,9 +50,9 @@ jobs:
           docker -H ssh://root@urbanairlab.hn compose -p ual_infrastructure_deployments  -f docker-compose-ml.yaml rm -f -s -v
           docker -H ssh://root@urbanairlab.hn compose -p ual_infrastructure_deployments  -f docker-compose-ml.yaml up -d --pull always --build
 
-      - name: Delete Credentials
-        run: |
-            ssh root@urbanairlab.hn "rm -rf /opt/ual/mlflow"
+      #- name: Delete Credentials
+        #run: |
+            #ssh root@urbanairlab.hn "rm -rf /opt/ual/mlflow"
 
           
           
