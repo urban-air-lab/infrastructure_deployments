@@ -21,8 +21,6 @@ jobs:
 
       - name: Create credentials
         run: |
-            rm -rf "./configs/mlflow/"
-            mkdir "./configs/mlflow/"
             echo "[mlflow]" >> ./configs/mlflow/credentials
             echo "default_permission = read" >> ./configs/mlflow/credentials  
             echo "database_uri = sqlite:///basic_auth.db" >> ./configs/mlflow/credentials  
