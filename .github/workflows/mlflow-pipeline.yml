@@ -27,7 +27,7 @@ jobs:
             database_uri = sqlite:///basic_auth.db
             admin_username = "${{ secrets.MLFLOW_USERNAME }}"
             admin_password = "${{ secrets.MLFLOW_PASSWORD }}"
-            EOF
+            'EOF'
             chmod 600 /opt/ual/mlflow/credentials"         
 
       - name: Deploy MLFLow and Databases
