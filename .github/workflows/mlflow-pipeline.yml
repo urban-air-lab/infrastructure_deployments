@@ -21,7 +21,7 @@ jobs:
 
       - name: Create credentials
         run: |
-            rm -f "./configs/mlflow/"
+            rm -rf "./configs/mlflow/"
             mkdir "./configs/mlflow/"
             echo "[mlflow]" >> ./configs/mlflow/credentials
             echo "default_permission = read" >> ./configs/mlflow/credentials  
