@@ -21,6 +21,7 @@ jobs:
 
       - name: Create credentials
         run: |
+            rm -rf ./configs/mlflow/credentials
             echo "[mlflow]" >> ./configs/mlflow/credentials
             echo "default_permission = read" >> ./configs/mlflow/credentials  
             echo "database_uri = sqlite:///basic_auth.db" >> ./configs/mlflow/credentials  
@@ -31,7 +32,7 @@ jobs:
 
       - name: Copy config to remote
         run: |
-              ssh root@urbanairlab.hn "mkdir -p /opt/ual/mlflow"
+              ssh root@urbanairlab.hn "mkdir -p /opt/ual/configs/mlflow"
               rsync -az --delete \
               ./configs/mlflow/ \
               root@urbanairlab.hn:/opt/ual/
