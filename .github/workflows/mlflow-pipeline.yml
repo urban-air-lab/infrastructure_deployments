@@ -27,7 +27,7 @@ jobs:
             echo "admin_username = "${{ secrets.MLFLOW_USERNAME }}"" >> ./configs/mlflow/credentials 
             echo "admin_password = "${{ secrets.MLFLOW_PASSWORD }}"" >> ./configs/mlflow/credentials 
           
-            cat credentials
+            cat ./configs/mlflow/credentials
 
       - name: Copy config to remote
         run: |
