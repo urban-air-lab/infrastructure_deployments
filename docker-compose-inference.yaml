@@ -17,6 +17,8 @@ services:
       - MLFLOW_PASSWORD=${MLFLOW_PASSWORD}
     networks:
       - iot
+    labels:
+      - "traefik.enable=false"
 
 networks:
   iot:
