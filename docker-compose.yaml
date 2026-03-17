@@ -16,6 +16,8 @@ services:
     depends_on:
       - mosquitto
       - influxdb
+    labels:
+      - "traefik.enable=false"
 
   mosquitto:
     image: eclipse-mosquitto:2.1.1-alpine
