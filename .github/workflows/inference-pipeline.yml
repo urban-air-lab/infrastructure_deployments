@@ -1,4 +1,4 @@
-name: "Deploy Inference Server"
+name: "Deploy Inference Service"
 
 on:
   workflow_dispatch:
