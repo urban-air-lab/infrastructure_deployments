@@ -2,9 +2,11 @@ services:
   node_exporter:
     image: quay.io/prometheus/node-exporter:v1.10.2
     container_name: node_exporter
+    restart: always
+    networks:
+      - monitoring
     command: "--path.rootfs=/host"
     pid: host
-    restart: unless-stopped
     volumes:
       - /:/host:ro,rslave
     labels:
@@ -13,6 +15,9 @@ services:
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:v0.52.1
     container_name: cadvisor
+    restart: always
+    networks:
+      - monitoring
     ports:
       - 8080:8080
     volumes:
@@ -24,13 +29,15 @@ services:
     devices:
       - /dev/kmsg
     privileged: true
-    restart: unless-stopped
     labels:
       - "traefik.enable=false"
 
   prometheus:
     image: docker.io/prom/prometheus:v3.6.0
     container_name: prometheus
+    restart: always
+    networks:
+      - monitoring
     command:
       - --config.file=/etc/prometheus/prometheus.yaml
       - --storage.tsdb.retention.time=7d
@@ -40,7 +47,6 @@ services:
     volumes:
       - /opt/ual/configs/prometheus/prometheus.yaml:/etc/prometheus/prometheus.yaml:ro
       - prometheus-data:/prometheus
-    restart: unless-stopped
     labels:
       - "traefik.enable=false"
 
@@ -51,6 +57,7 @@ services:
     networks:
       - iot
       - frontend
+      - monitoring
     volumes:
       - /opt/ual/configs/grafana-provisioning:/etc/grafana/provisioning:ro
       - grafana-data:/var/lib/grafana
@@ -73,6 +80,7 @@ services:
 networks:
   iot:
   frontend:
+  monitoring:
 
 volumes:
   grafana-data:
