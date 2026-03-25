@@ -35,7 +35,7 @@ jobs:
           password: ${{ secrets.PAT }}
 
 
-      - name: Deploy Influx, MQTT, Telegraf and Grafana
+      - name: Deploy Grafana, Prometheus, Node-Exporter, Cadvisor
         env:
           TRAEFIK_DOMAIN: urbanairlab.hn
 
