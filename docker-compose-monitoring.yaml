@@ -38,7 +38,7 @@ services:
     ports:
       - 9090:9090
     volumes:
-      - ./opt/ual/configs/prometheus/prometheus.yaml:/etc/prometheus/prometheus.yaml:ro
+      - /opt/ual/configs/prometheus/prometheus.yaml:/etc/prometheus/prometheus.yaml:ro
       - prometheus-data:/prometheus
     restart: unless-stopped
     labels:
