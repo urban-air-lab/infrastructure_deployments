@@ -63,9 +63,6 @@ services:
       - "traefik.enable=true"
       - "traefik.docker.network=ual_infrastructure_deployments_frontend"
 
-      - "traefik.http.routers.influx.rule=Host(`influx.${TRAEFIK_DOMAIN}`)"
-      - "traefik.http.routers.influx.entrypoints=web"
-
       - "traefik.http.routers.influx-secure.rule=Host(`influx.${TRAEFIK_DOMAIN}`)"
       - "traefik.http.routers.influx-secure.entrypoints=websecure"
       - "traefik.http.routers.influx-secure.tls=true"
