@@ -11,8 +11,6 @@ services:
     pid: host
     volumes:
       - /:/host:ro,rslave
-    labels:
-      - "traefik.enable=false"
 
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:v0.52.1
@@ -31,8 +29,6 @@ services:
     devices:
       - /dev/kmsg
     privileged: true
-    labels:
-      - "traefik.enable=false"
 
   prometheus:
     image: docker.io/prom/prometheus:v3.6.0
@@ -49,8 +45,6 @@ services:
     volumes:
       - /opt/ual/configs/prometheus/prometheus.yaml:/etc/prometheus/prometheus.yaml:ro
       - prometheus-data:/prometheus
-    labels:
-      - "traefik.enable=false"
 
   grafana:
     image: grafana/grafana:12.3.2-security-01-ubuntu
