@@ -3,6 +3,8 @@ services:
     image: quay.io/prometheus/node-exporter:v1.10.2
     container_name: node_exporter
     restart: always
+    ports:
+      - "9100:9100"
     networks:
       - monitoring
     command: "--path.rootfs=/host"
@@ -16,10 +18,10 @@ services:
     image: gcr.io/cadvisor/cadvisor:v0.52.1
     container_name: cadvisor
     restart: always
+    ports:
+      - "8080:8080"
     networks:
       - monitoring
-    ports:
-      - 8080:8080
     volumes:
       - /:/rootfs:ro
       - /run:/run:ro
@@ -43,7 +45,7 @@ services:
       - --storage.tsdb.retention.time=7d
       - --storage.tsdb.retention.size=2GB
     ports:
-      - 9090:9090
+      - "9090:9090"
     volumes:
       - /opt/ual/configs/prometheus/prometheus.yaml:/etc/prometheus/prometheus.yaml:ro
       - prometheus-data:/prometheus
