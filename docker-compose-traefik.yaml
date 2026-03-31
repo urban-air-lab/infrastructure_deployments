@@ -3,7 +3,7 @@ services:
     image: traefik:3.6.1
     command:
       --api.insecure=false 
-      --api.dashboard=true
+      --api.dashboard=false
       --providers.docker=true
       
       --entrypoints.web.address=:80
@@ -33,11 +33,7 @@ services:
     labels:
       - "traefik.enable=true"
 
-      # Router for dashboard on http://traefik.localhost/dashboard
-      - "traefik.http.routers.traefik-dashboard.rule=Host(`traefik.${TRAEFIK_DOMAIN}`)"
-      - "traefik.http.routers.traefik-dashboard.service=api@internal"
-      - "traefik.http.routers.traefik-dashboard.entrypoints=web"
-
+      # Router for dashboard on http://traefik.localhost/
       - "traefik.http.routers.traefik-dashboard-secure.rule=Host(`traefik.${TRAEFIK_DOMAIN}`)"
       - "traefik.http.routers.traefik-dashboard-secure.entrypoints=websecure"
       - "traefik.http.routers.traefik-dashboard-secure.service=api@internal"
