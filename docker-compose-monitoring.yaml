@@ -50,16 +50,7 @@ services:
       - /opt/ual/configs/prometheus/prometheus.yaml:/etc/prometheus/prometheus.yaml:ro
       - prometheus-data:/prometheus
     labels:
-      - "traefik.enable=true"
-      - "traefik.docker.network=ual_infrastructure_deployments_frontend"
-
-      - "traefik.http.routers.prometheus.rule=Host(`prometheus.${TRAEFIK_DOMAIN}`)"
-      - "traefik.http.routers.prometheus.entrypoints=web"
-
-      - "traefik.http.routers.prometheus-secure.rule=Host(`prometheus.${TRAEFIK_DOMAIN}`)"
-      - "traefik.http.routers.prometheus-secure.entrypoints=websecure"
-      - "traefik.http.routers.prometheus-secure.tls=true"
-      - "traefik.http.routers.prometheus-secure.tls.certresolver=myresolver"
+      - "traefik.enable=false"
 
   grafana:
     image: grafana/grafana:12.3.2-security-01-ubuntu
