@@ -51,6 +51,7 @@ services:
       - prometheus-data:/prometheus
     labels:
       - "traefik.enable=true"
+      - "traefik.docker.network=ual_infrastructure_deployments_frontend"
 
       - "traefik.http.routers.prometheus.rule=Host(`prometheus.${TRAEFIK_DOMAIN}`)"
       - "traefik.http.routers.prometheus.entrypoints=web"
