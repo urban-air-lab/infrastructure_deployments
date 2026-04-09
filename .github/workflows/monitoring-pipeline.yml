@@ -43,9 +43,13 @@ jobs:
 
           GF_SECURITY_ADMIN_USER: "${{ secrets.GF_SECURITY_ADMIN_USER }}"
           GF_SECURITY_ADMIN_PASSWORD: "${{ secrets.GF_SECURITY_ADMIN_PASSWORD }}"
+
+          SMTP_HOST: "${{ secrets.SMTP_HOST }}"
+          SMTP_USER: "${{ secrets.SMTP_USER }}"
+          SMTP_AUTH: "${{ secrets.SMTP_AUTH }}"
         run: |
           docker -H ssh://root@urbanairlab.hn compose -p ual_infrastructure_deployments  -f docker-compose-monitoring.yaml rm -f -s -v
-          docker -H ssh://root@urbanairlab.hn compose -p ual_infrastructure_deployments  -f docker-compose-monitoring.yaml up -d --pull always
+          docker -H ssh://root@urbanairlab.hn compose -p ual_infrastructure_deployments  -f docker-compose-monitoring.yaml up -d --pull always --build
           
 
       #- name: Delete Credentials
