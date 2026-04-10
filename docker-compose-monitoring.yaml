@@ -53,6 +53,7 @@ services:
       - prometheus-data:/prometheus
 
   alertmanager:
+    image: ual_infrastructure_deployments-alertmanager:latest
     build: ./alertmanager-docker
     container_name: alertmanager
     restart: always
