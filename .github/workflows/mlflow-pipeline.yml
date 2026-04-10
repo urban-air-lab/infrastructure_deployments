@@ -53,6 +53,9 @@ jobs:
           MYSQL_USER: "${{ secrets.MYSQL_USER }}"
           MYSQL_PASSWORD: "${{ secrets.MYSQL_PASSWORD }}"
           MYSQL_ROOT_PASSWORD: "${{ secrets.MYSQL_ROOT_PASSWORD }}"
+
+          DOCKER_BUILDKIT: 0
+          COMPOSE_DOCKER_CLI_BUILD: 0
         run: |
           docker -H ssh://root@urbanairlab.hn compose -p ual_infrastructure_deployments  -f docker-compose-ml.yaml rm -f -s -v
           docker -H ssh://root@urbanairlab.hn compose -p ual_infrastructure_deployments  -f docker-compose-ml.yaml up -d --pull always --build
