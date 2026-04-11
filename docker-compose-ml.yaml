@@ -46,7 +46,7 @@ services:
             - MLFLOW_AUTH_CONFIG_PATH=/mlflow/credentials
         volumes:
             - /opt/ual/mlflow/credentials:/mlflow/credentials
-        command: mlflow server --backend-store-uri mysql+pymysql://${MYSQL_USER}:${MYSQL_PASSWORD}@db:3306/${MYSQL_DATABASE} --artifacts-destination s3://mlflow/ --host 0.0.0.0 --app-name=basic-auth --workers 1
+        command: mlflow server --backend-store-uri mysql+pymysql://${MYSQL_USER}:${MYSQL_PASSWORD}@db:3306/${MYSQL_DATABASE} --artifacts-destination s3://mlflow/ --host 0.0.0.0 --allowed-hosts "mlflow.urbanairlab.hn" --app-name=basic-auth --workers 1
         networks:
             - ml
             - frontend
