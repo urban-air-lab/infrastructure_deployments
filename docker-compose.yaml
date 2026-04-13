@@ -45,6 +45,8 @@ services:
     image: influxdb:2.8.0
     container_name: influxdb
     restart: always
+    ports:
+      - "8086:8086"
     networks:
       - iot
       - frontend
