@@ -38,7 +38,7 @@ groups:
       description: "Memory is being consumed at a rate of more than 10MB/min\n  VALUE = {{ $value | humanize }}B/s"
 
   - alert: LowContainerCount
-    expr: count(container_last_seen{job="cadvisor", image!=""}) < 13
+    expr: count(container_last_seen{job="cadvisor", image!=""}) < 14
     for: 5m
     labels:
       severity: warning
