@@ -45,6 +45,7 @@ jobs:
           MLFLOW_USERNAME: "${{ secrets.MLFLOW_USERNAME }}"
           MLFLOW_PASSWORD: "${{ secrets.MLFLOW_PASSWORD }}"
           MLFLOW_HTTP_POOL_CONNECTIONS: 30
+          MLFLOW_SERVER_ENABLE_JOB_EXECUTION: false
 
           AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
           AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
