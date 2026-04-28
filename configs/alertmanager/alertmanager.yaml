@@ -9,7 +9,7 @@ route:
   receiver: 'email-alerts'
   group_wait: 10s
   group_interval: 5m
-  repeat_interval: 4h
+  repeat_interval: 24h
 
 receivers:
   - name: 'email-alerts'

@@ -44,4 +44,4 @@ groups:
       severity: warning
     annotations:
       summary: "Too few running containers"
-      description: "The number of containers reported by cAdvisor is below 13. Current value = {{ $value }}"
+      description: "The number of containers reported by cAdvisor is below 14. Current value = {{ $value }}"
