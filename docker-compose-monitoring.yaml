@@ -54,7 +54,7 @@ services:
 
   alertmanager:
     image: alertmanager-envsubst:v0.31.1
-    build: ./alertmanager-docker
+    build: ./docker/alertmanager-docker
     container_name: alertmanager
     restart: always
     ports:
