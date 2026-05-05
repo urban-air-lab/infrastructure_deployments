@@ -47,7 +47,7 @@ services:
             - MLFLOW_SERVER_ENABLE_JOB_EXECUTION=false
         volumes:
             - /opt/ual/mlflow/credentials:/mlflow/credentials
-        command: mlflow server --backend-store-uri mysql+pymysql://${MYSQL_USER}:${MYSQL_PASSWORD}@db:3306/${MYSQL_DATABASE} --artifacts-destination s3://mlflow/ --host 0.0.0.0 --allowed-hosts "*" --cors-allowed-origins "*" --app-name=basic-auth --workers 1
+        command: mlflow server --backend-store-uri mysql+pymysql://${MYSQL_USER}:${MYSQL_PASSWORD}@db:3306/${MYSQL_DATABASE} --artifacts-destination s3://mlflow/ --host 0.0.0.0 --allowed-hosts "mlflow.urbanairlab.hn,*.urbanairlab.hn" --cors-allowed-origins "https://mlflow.urbanairlab.hn" --app-name=basic-auth --workers 1
         networks:
             - ml
             - frontend
