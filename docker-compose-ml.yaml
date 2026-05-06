@@ -17,7 +17,7 @@ services:
 
     db:
         restart: always
-        image: mysql/mysql-server
+        image: mysql/mysql-server:8.0.31-1.2.10-server
         container_name: mlflow_db
         ports:
             - "3306:3306"
