@@ -75,7 +75,7 @@ services:
       - monitoring
 
   grafana:
-    image: grafana/grafana:12.3.2-security-01-ubuntu
+    image: grafana/grafana:13.1.0-25410206825-ubuntu
     container_name: grafana
     restart: always
     networks:
