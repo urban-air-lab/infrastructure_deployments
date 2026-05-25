@@ -71,7 +71,7 @@ services:
       - "traefik.http.routers.influx-secure.tls.certresolver=myresolver"
 
   telegraf:
-    image: telegraf:1.37
+    image: telegraf:1.38.3
     container_name: telegraf
     hostname: telegraf
     restart: always
