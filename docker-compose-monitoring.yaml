@@ -48,8 +48,8 @@ services:
     ports:
       - "9090:9090"
     volumes:
-      - /opt/ual/configs/prometheus/prometheus.yaml:/etc/prometheus/prometheus.yaml:ro
-      - /opt/ual/configs/prometheus/alerts.yaml:/etc/prometheus/alerts.yaml:ro
+      - ${CONFIG_ROOT}/configs/prometheus/prometheus.yaml:/etc/prometheus/prometheus.yaml:ro
+      - ${CONFIG_ROOT}/configs/prometheus/alerts.yaml:/etc/prometheus/alerts.yaml:ro
       - prometheus-data:/prometheus
 
   alertmanager:
@@ -66,7 +66,7 @@ services:
         envsubst < /etc/alertmanager/alertmanager.yaml > /tmp/alertmanager.yaml &&
         exec /bin/alertmanager --config.file=/tmp/alertmanager.yaml
     volumes:
-      - /opt/ual/configs/alertmanager/alertmanager.yaml:/etc/alertmanager/alertmanager.yaml:ro
+      - ${CONFIG_ROOT}/configs/alertmanager/alertmanager.yaml:/etc/alertmanager/alertmanager.yaml:ro
     environment:
       - SMTP_HOST=${SMTP_HOST}
       - SMTP_USER=${SMTP_USER}
@@ -85,7 +85,7 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - /opt/ual/configs/grafana-provisioning:/etc/grafana/provisioning:ro
+      - ${CONFIG_ROOT}/configs/grafana-provisioning:/etc/grafana/provisioning:ro
       - grafana-data:/var/lib/grafana
     environment:
       - GF_SECURITY_ADMIN_USER=${GF_SECURITY_ADMIN_USER}
