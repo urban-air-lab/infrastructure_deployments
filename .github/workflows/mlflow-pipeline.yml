@@ -40,6 +40,8 @@ jobs:
       - name: Deploy MLFLow and Databases
         env:
           TRAEFIK_DOMAIN: urbanairlab.hn
+          CONFIG_ROOT: /opt/ual
+
           MLFLOW_URL: "${{ secrets.MLFLOW_URL }}"
           MLFLOW_FLASK_SERVER_SECRET_KEY: "${{ secrets.MLFLOW_FLASK_SERVER_SECRET_KEY }}"
           MLFLOW_USERNAME: "${{ secrets.MLFLOW_USERNAME }}"
