@@ -30,7 +30,7 @@ services:
       - iot
       - frontend
     volumes:
-      - /opt/ual/configs/mosquitto:/mosquitto/config:ro
+      - ${CONFIG_ROOT}/configs/mosquitto:/mosquitto/config:ro
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=ual_infrastructure_deployments_frontend"
@@ -79,7 +79,7 @@ services:
       - iot
       - frontend
     volumes:
-      - /opt/ual/configs/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+      - ${CONFIG_ROOT}/configs/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
     environment:
       - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=${DOCKER_INFLUXDB_INIT_ADMIN_TOKEN}
       - MQTT_USERNAME=${MQTT_USERNAME}

@@ -61,6 +61,7 @@ jobs:
       - name: Deploy Influx, MQTT, Telegraf and Grafana
         env:
           TRAEFIK_DOMAIN: urbanairlab.hn
+          CONFIG_ROOT: /opt/ual
 
           INFLUX_URL: "${{ secrets.INFLUX_URL }}"
           INFLUX_ORG: "${{ secrets.INFLUX_ORG }}"
