@@ -30,12 +30,12 @@ jobs:
 
       - name: Copy config to remote
         run: |
-              ssh root@urbanairlab.hn "mkdir -p /opt/ual/mlflow"
+              ssh root@urbanairlab.hn "mkdir -p /opt/ual/configs/mlflow"
               rsync -az --delete \
               ./configs/mlflow/ \
               root@urbanairlab.hn:/opt/ual/mlflow
           
-              ssh root@urbanairlab.hn "chmod 644 /opt/ual/mlflow/credentials"
+              ssh root@urbanairlab.hn "chmod 644 /opt/ual/configs/mlflow/credentials"
 
       - name: Deploy MLFLow and Databases
         env:
