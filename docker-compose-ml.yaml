@@ -65,9 +65,6 @@ services:
           - "traefik.enable=true"
           - "traefik.docker.network=ual_infrastructure_deployments_frontend"
 
-          # unlike influx/ grafana image is self build and doesn´t expose port by default
-          - "traefik.http.services.mlflow.loadbalancer.server.port=5000"
-
           - "traefik.http.routers.mlflow-secure.rule=Host(`mlflow.${TRAEFIK_DOMAIN}`)"
           - "traefik.http.routers.mlflow-secure.entrypoints=websecure"
           - "traefik.http.routers.mlflow-secure.tls=true"
