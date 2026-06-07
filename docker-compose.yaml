@@ -69,6 +69,11 @@ services:
       - "traefik.http.routers.influx-secure.entrypoints=websecure"
       - "traefik.http.routers.influx-secure.tls=true"
       - "traefik.http.routers.influx-secure.tls.certresolver=myresolver"
+    healthcheck:
+          test: ["CMD", "curl", "influxdb:8086/ping"]
+          interval: 1m
+          timeout: 10s
+          retries: 5
 
   telegraf:
     image: telegraf:1.38.3
