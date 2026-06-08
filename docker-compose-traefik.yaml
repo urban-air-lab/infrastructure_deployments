@@ -1,6 +1,12 @@
 services:
   traefik:
     image: traefik:3.7.0
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8883:8883"
+      - "8082:8082"
     command:
       --api.insecure=false 
       --api.dashboard=false
@@ -20,11 +26,7 @@ services:
       --entrypoints.web.http.redirections.entrypoint.scheme=https
     
       --log.level=INFO
-    restart: unless-stopped
-    ports:
-      - "80:80"
-      - "443:443"
-      - "8883:8883"
+      --ping=true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./letsencrypt:/letsencrypt
@@ -39,6 +41,12 @@ services:
       - "traefik.http.routers.traefik-dashboard-secure.service=api@internal"
       - "traefik.http.routers.traefik-dashboard-secure.tls=true"
       - "traefik.http.routers.traefik-dashboard-secure.tls.certresolver=myresolver"
+    healthcheck:
+      test: [ "CMD", "traefik", "healthcheck", "--ping" ]
+      interval: 1m
+      timeout: 10s
+      retries: 5
+      start_period: 30s
 
 networks:
   frontend:
