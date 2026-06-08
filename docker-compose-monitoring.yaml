@@ -16,6 +16,11 @@ services:
       - /proc:/host/proc:ro
       - /sys:/host/sys:ro
       - /:/rootfs:ro
+    healthcheck:
+      test: [ "CMD", "wget", "--spider", "http://localhost:9100/" ]
+      interval: 1m
+      timeout: 10s
+      retries: 5
 
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:v0.52.1
@@ -34,6 +39,11 @@ services:
     devices:
       - /dev/kmsg
     privileged: true
+    healthcheck:
+      test: [ "CMD", "wget", "--spider", "http://localhost:8080/containers/" ]
+      interval: 1m
+      timeout: 10s
+      retries: 5
 
   prometheus:
     image: docker.io/prom/prometheus:v3.6.0
@@ -51,6 +61,11 @@ services:
       - ${CONFIG_ROOT}/configs/prometheus/prometheus.yaml:/etc/prometheus/prometheus.yaml:ro
       - ${CONFIG_ROOT}/configs/prometheus/alerts.yaml:/etc/prometheus/alerts.yaml:ro
       - prometheus-data:/prometheus
+    healthcheck:
+      test: [ "CMD", "wget", "--spider", "http://localhost:9090/-/healthy" ]
+      interval: 1m
+      timeout: 10s
+      retries: 5
 
   alertmanager:
     image: alertmanager-envsubst:v0.31.1
@@ -73,6 +88,11 @@ services:
       - SMTP_AUTH=${SMTP_AUTH}
     networks:
       - monitoring
+    healthcheck:
+      test: [ "CMD", "wget", "--spider", "http://localhost:9093/-/healthy" ]
+      interval: 1m
+      timeout: 10s
+      retries: 5
 
   grafana:
     image: grafana/grafana:13.1.0-25410206825-ubuntu
@@ -103,6 +123,11 @@ services:
       - "traefik.http.routers.grafana.entrypoints=websecure"
       - "traefik.http.routers.grafana.tls=true"
       - "traefik.http.routers.grafana.tls.certresolver=myresolver"
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -f localhost:3000/api/health && echo 'ready'" ]
+      interval: 1m
+      timeout: 10s
+      retries: 5
 
 networks:
   iot:
