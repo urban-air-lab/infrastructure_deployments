@@ -1,5 +1,7 @@
 .idea
 .env
+.claude
+.codex
 /data
 /configs/mosquitto/passwordfile
 __pycache__/
