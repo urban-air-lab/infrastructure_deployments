@@ -7,6 +7,12 @@ import logging
 from dotenv import load_dotenv
 from ual.mqtt.mqtt_client import MQTTClient
 
+
+# Possible errors, if the scripts dont work
+# 1. no Timestamp - need as primary key
+# 2. comma or point separated values?
+
+
 load_dotenv()
 
 logging.basicConfig(
@@ -23,19 +29,20 @@ def publish_ual_custom_csv_data(file_path: str, topic: str) -> None:
     if ".csv" not in file_path:
         logging.warning(f"file is not a .csv file: {file_path}")
     try:
-        data: pd.DataFrame = pd.read_csv(f"./{file_path}", sep=';')
+        data: pd.DataFrame = pd.read_csv(f"./{file_path}", sep=';', decimal=',')
         data["Zeitstempel"] = pd.to_datetime(data["Zeitstempel"])
         data["unix_time"] = data["Zeitstempel"].astype('int64') // 10 ** 9
         data["Zeitstempel"] = data["Zeitstempel"].astype(str)
 
         data: list = data.to_dict(orient="records")
-        for element in data:
+        sleep = 15
+        for element in data[169801:]:
             mqtt_client.publish_data(element, topic)
             counter += 1
             if counter > 1000:
-                time.sleep(30) # To not overfill message queue
+                logging.info(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Cool down for {sleep}s")
+                time.sleep(sleep) # To not overfill message queue
                 counter = 0
-                logging.info(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Cool down for 15s")
         logging.info(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Published to {topic}")
 
     except Exception as e:
@@ -55,9 +62,9 @@ def publish_ual_custom_log_data(file_path: str, topic: str) -> None:
                 mqtt_client.publish_data(element, topic)
                 counter += 1
                 if counter > 10000:
-                    time.sleep(40)  # To not overfill message queue
+                    logging.info(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Cool down for 40s")
+                    time.sleep(30)  # To not overfill message queue
                     counter = 0
-                    logging.info(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Cool down for 15s")
             logging.info(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Published to {topic}: {file}")
 
         except Exception as e:
@@ -65,4 +72,4 @@ def publish_ual_custom_log_data(file_path: str, topic: str) -> None:
 
 
 
-publish_ual_custom_csv_data("./data/DEBW015_2026-02-13.csv", topic="sensors/lubw-minute/DEBW015")
+publish_ual_custom_csv_data("../data/ExpMersy_2026-06-10_09-03.csv", topic="sensors/lubw-minute/DEBW015")
