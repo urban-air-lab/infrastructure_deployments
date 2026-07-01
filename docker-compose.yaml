@@ -23,9 +23,6 @@ services:
     image: eclipse-mosquitto:2.1.1-alpine
     container_name: mosquitto
     restart: always
-    expose:
-      - "8883"
-      - "9001"
     networks:
       - iot
       - frontend
