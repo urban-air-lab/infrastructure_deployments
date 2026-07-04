@@ -42,12 +42,12 @@ jobs:
 
       - name: Copy configs to remote
         run: |
-              ssh root@urbanairlab.hn "mkdir -p /opt/ual"
+              ssh root@91.99.65.22 "mkdir -p /opt/ual"
               rsync -az --delete \
               ./configs \
-              root@urbanairlab.hn:/opt/ual/
+              root@91.99.65.22:/opt/ual/
           
-              ssh root@urbanairlab.hn "chmod 644 /opt/ual/configs/mosquitto/passwordfile"
+              ssh root@91.99.65.22 "chmod 644 /opt/ual/configs/mosquitto/passwordfile"
 
 
       - name: Log in to GitHub Container Registry

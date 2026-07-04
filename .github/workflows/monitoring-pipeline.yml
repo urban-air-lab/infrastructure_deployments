@@ -21,10 +21,10 @@ jobs:
 
       - name: Copy configs to remote
         run: |
-              ssh root@urbanairlab.hn "mkdir -p /opt/ual"
+              ssh root@91.99.65.22 "mkdir -p /opt/ual"
               rsync -az --delete \
               ./configs \
-              root@urbanairlab.hn:/opt/ual/
+              root@91.99.65.22:/opt/ual/
 
       - name: Deploy Grafana, Prometheus, Node-Exporter, Cadvisor
         env:
