@@ -22,7 +22,7 @@ scrape_configs:
   - job_name: 'node_exporter'
     scrape_interval: 10s
     static_configs:
-      - targets: ['node_exporter:9100']
+      - targets: ['91.99.65.22:9100']
         labels:
           server: "vm1"
       - targets: ["142.132.170.152:9100"]
@@ -33,7 +33,7 @@ scrape_configs:
   - job_name: 'cadvisor'
     scrape_interval: 10s
     static_configs:
-     - targets: ['cadvisor:8080']
+     - targets: ['91.99.65.22:8080']
        labels:
          server: "vm1"
      - targets: [ "142.132.170.152:8080" ]
