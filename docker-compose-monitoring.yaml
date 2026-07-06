@@ -51,6 +51,7 @@ services:
     restart: always
     networks:
       - monitoring
+      - frontend
     command:
       - --config.file=/etc/prometheus/prometheus.yaml
       - --storage.tsdb.retention.time=7d
