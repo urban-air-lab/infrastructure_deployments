@@ -61,6 +61,14 @@ services:
       - ${CONFIG_ROOT}/configs/prometheus/prometheus.yaml:/etc/prometheus/prometheus.yaml:ro
       - ${CONFIG_ROOT}/configs/prometheus/alerts.yaml:/etc/prometheus/alerts.yaml:ro
       - prometheus-data:/prometheus
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=ual_infrastructure_deployments_frontend"
+
+      - "traefik.http.routers.prometheus.rule=Host(`prometheus.${TRAEFIK_DOMAIN}`)"
+      - "traefik.http.routers.prometheus.entrypoints=websecure"
+      - "traefik.http.routers.prometheus.tls=true"
+      - "traefik.http.routers.prometheus.tls.certresolver=myresolver"
     healthcheck:
       test: [ "CMD", "wget", "--spider", "http://localhost:9090/-/healthy" ]
       interval: 1m
