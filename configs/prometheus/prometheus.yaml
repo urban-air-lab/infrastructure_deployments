@@ -36,6 +36,6 @@ scrape_configs:
      - targets: ['91.99.65.22:8080']
        labels:
          server: "vm1"
-     - targets: [ "142.132.170.152:8080" ]
+     - targets: ["142.132.170.152:8080"]
        labels:
          server: "vm2"
