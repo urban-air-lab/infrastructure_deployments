@@ -37,11 +37,20 @@ groups:
       summary: "Unusual memory consumption rate (instance {{ $labels.instance }})"
       description: "Memory is being consumed at a rate of more than 10MB/min\n  VALUE = {{ $value | humanize }}B/s"
 
-  - alert: LowContainerCount
-    expr: count(container_last_seen{job="cadvisor", image!=""}) < 14
+  - alert: LowContainerCount-Project
+    expr: count(container_last_seen{job="cadvisor", server="vm1", image!=""}) < 14
     for: 5m
     labels:
       severity: warning
     annotations:
       summary: "Too few running containers"
-      description: "The number of containers reported by cAdvisor is below 14. Current value = {{ $value }}"
+      description: "The number of project server containers reported by cAdvisor is below 14. Current value = {{ $value }}"
+
+  - alert: LowContainerCount-Project
+    expr: count(container_last_seen{job="cadvisor", server="vm2", image!=""}) < 7
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Too few running containers"
+      description: "The number of community server containers reported by cAdvisor is below 7. Current value = {{ $value }}"
