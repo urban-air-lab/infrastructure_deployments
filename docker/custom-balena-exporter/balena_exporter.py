@@ -2,10 +2,15 @@ import asyncio
 import logging
 import os
 from contextlib import asynccontextmanager
+from pprint import pprint
 
 import requests
+import uvicorn
+from dotenv import load_dotenv
 from fastapi import FastAPI, Response
 from prometheus_client import CONTENT_TYPE_LATEST, CollectorRegistry, Gauge, generate_latest
+
+load_dotenv()
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("balena_exporter")
@@ -20,18 +25,18 @@ device_online = Gauge(
     registry=registry,
 )
 
-
 def scrape_devices() -> None:
     """Query the Balena API and update the metrics for each device."""
     response = requests.get(
-        "https://api.balena-cloud.com/v7/device",
-        params={"$select": "device_name,is_online"},
+        "https://api.balena-cloud.com/v7/device?$select=device_name,is_online",
+        #params={"$select": "device_name,is_online"},
         headers={
             "Accept": "application/json",
             "Authorization": f"Bearer {BALENA_API_TOKEN}",
         },
         timeout=30,
     )
+    print(response.content)
     response.raise_for_status()
 
     devices = response.json().get("d", [])
@@ -68,3 +73,6 @@ def metrics() -> Response:
 @app.get("/health")
 def healthcheck() -> dict[str, str]:
     return {'status': 'healthy'}
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)
