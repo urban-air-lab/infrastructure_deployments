@@ -45,6 +45,17 @@ services:
       timeout: 10s
       retries: 5
 
+  balena_exporter:
+    build: ./docker/custom-balena-exporter
+    container_name: balena_exporter
+    restart: always
+    ports:
+      - "8000:8000"
+    networks:
+      - monitoring
+    environment:
+      - BALENA_API_TOKEN=${BALENA_API_TOKEN}
+
   prometheus:
     image: docker.io/prom/prometheus:v3.6.0
     container_name: prometheus
@@ -63,6 +74,8 @@ services:
         condition: service_healthy
       alertmanager:
         condition: service_healthy
+      #balena_exporter:
+        #condition: service_healthy
     ports:
       - "9090:9090"
     volumes:
@@ -74,6 +87,14 @@ services:
       interval: 1m
       timeout: 10s
       retries: 5
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=ual_infrastructure_deployments_frontend"
+
+      - "traefik.http.routers.prometheus.rule=Host(`prometheus.${TRAEFIK_DOMAIN}`)"
+      - "traefik.http.routers.prometheus.entrypoints=websecure"
+      - "traefik.http.routers.prometheus.tls=true"
+      - "traefik.http.routers.prometheus.tls.certresolver=myresolver"
 
   alertmanager:
     image: alertmanager-envsubst:v0.31.1

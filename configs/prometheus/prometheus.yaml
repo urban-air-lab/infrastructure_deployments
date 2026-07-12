@@ -39,3 +39,8 @@ scrape_configs:
      - targets: ["142.132.170.152:8080"]
        labels:
          server: "vm2"
+
+  - job_name: 'balena_exporter'
+    scrape_interval: 60s
+    static_configs:
+      - targets: ['balena_exporter:8000']

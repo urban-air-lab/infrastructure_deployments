@@ -26,7 +26,7 @@ jobs:
               ./configs \
               root@91.99.65.22:/opt/ual/
 
-      - name: Deploy Grafana, Prometheus, Node-Exporter, Cadvisor
+      - name: Deploy Grafana, Prometheus, Node-Exporter, Cadvisor, Balena-Exporter
         env:
           TRAEFIK_DOMAIN: urbanairlab.hn
           CONFIG_ROOT: /opt/ual
@@ -39,6 +39,8 @@ jobs:
           SMTP_HOST: "${{ secrets.SMTP_HOST }}"
           SMTP_USER: "${{ secrets.SMTP_USER }}"
           SMTP_AUTH: "${{ secrets.SMTP_AUTH }}"
+
+          BALENA_API_TOKEN: "${{ secrets.BALENA_API_TOKEN }}"
 
           DOCKER_BUILDKIT: 0
           COMPOSE_DOCKER_CLI_BUILD: 0
