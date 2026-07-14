@@ -39,6 +39,7 @@ services:
       - "traefik.tcp.routers.mqtt.entrypoints=mqttsecure"
       - "traefik.tcp.services.mqtt.loadbalancer.server.port=8883"
       - "traefik.tcp.routers.mqtt.tls.certresolver=myresolver"
+      - "traefik.http.routers.mqtt.middlewares=ratelimit"
     healthcheck:
       test: [ "CMD-SHELL", "grep -q mosquitto /proc/*/comm 2>/dev/null || exit 1" ]
       interval: 1m
@@ -73,6 +74,7 @@ services:
       - "traefik.http.routers.influx-secure.entrypoints=websecure"
       - "traefik.http.routers.influx-secure.tls=true"
       - "traefik.http.routers.influx-secure.tls.certresolver=myresolver"
+      - "traefik.http.routers.influx-secure.middlewares=ratelimit"
     healthcheck:
           test: ["CMD", "curl", "influxdb:8086/ping"]
           interval: 1m

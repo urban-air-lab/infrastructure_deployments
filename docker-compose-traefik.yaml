@@ -40,6 +40,11 @@ services:
       - "traefik.http.routers.traefik-dashboard-secure.service=api@internal"
       - "traefik.http.routers.traefik-dashboard-secure.tls=true"
       - "traefik.http.routers.traefik-dashboard-secure.tls.certresolver=myresolver"
+
+      # Shared rate limit middleware (referenced by routers in other compose files)
+      - "traefik.http.middlewares.ratelimit.ratelimit.average=100"
+      - "traefik.http.middlewares.ratelimit.ratelimit.period=1s"
+      - "traefik.http.middlewares.ratelimit.ratelimit.burst=200"
     healthcheck:
       test: [ "CMD", "traefik", "healthcheck", "--ping" ]
       interval: 1m

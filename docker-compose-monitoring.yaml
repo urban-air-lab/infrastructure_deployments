@@ -155,6 +155,7 @@ services:
       - "traefik.http.routers.grafana.entrypoints=websecure"
       - "traefik.http.routers.grafana.tls=true"
       - "traefik.http.routers.grafana.tls.certresolver=myresolver"
+      - "traefik.http.routers.grafana.middlewares=ratelimit"
     healthcheck:
       test: [ "CMD-SHELL", "curl -f localhost:3000/api/health && echo 'ready'" ]
       interval: 1m
