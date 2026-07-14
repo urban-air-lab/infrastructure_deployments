@@ -71,6 +71,11 @@ services:
           - "traefik.http.routers.mlflow-secure.entrypoints=websecure"
           - "traefik.http.routers.mlflow-secure.tls=true"
           - "traefik.http.routers.mlflow-secure.tls.certresolver=myresolver"
+
+          - "traefik.http.middlewares.ratelimit.ratelimit.average=10"
+          - "traefik.http.middlewares.ratelimit.ratelimit.period=1s"
+          - "traefik.http.middlewares.ratelimit.ratelimit.burst=200"
+
         healthcheck:
             test: [ "CMD", "curl", "http://localhost:5000/health" ]
             interval: 1m
