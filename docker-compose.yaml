@@ -20,6 +20,11 @@ services:
         condition: service_healthy
     labels:
       - "traefik.enable=false"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "5"
 
   mosquitto:
     image: eclipse-mosquitto:2.1.1-alpine
@@ -45,6 +50,11 @@ services:
       interval: 1m
       timeout: 10s
       retries: 5
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "5"
 
   influxdb:
     image: influxdb:2.8.0
@@ -80,6 +90,11 @@ services:
           interval: 1m
           timeout: 10s
           retries: 5
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "5"
 
   telegraf:
     image: telegraf:1.38.3
@@ -105,6 +120,11 @@ services:
       interval: 1m
       timeout: 10s
       retries: 5
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "5"
 
 networks:
   iot:

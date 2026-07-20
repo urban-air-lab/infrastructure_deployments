@@ -16,6 +16,11 @@ services:
             interval: 1m
             timeout: 10s
             retries: 5
+        logging:
+          driver: "json-file"
+          options:
+            max-size: "100m"
+            max-file: "5"
 
     db:
         restart: always
@@ -37,6 +42,11 @@ services:
             timeout: 5s
             retries: 10
             start_period: 30s
+        logging:
+          driver: "json-file"
+          options:
+            max-size: "100m"
+            max-file: "5"
 
     web:
         restart: always
@@ -72,12 +82,16 @@ services:
           - "traefik.http.routers.mlflow-secure.tls=true"
           - "traefik.http.routers.mlflow-secure.tls.certresolver=myresolver"
           - "traefik.http.routers.mlflow-secure.middlewares=ratelimit"
-
         healthcheck:
             test: [ "CMD", "curl", "http://localhost:5000/health" ]
             interval: 1m
             timeout: 10s
             retries: 5
+        logging:
+          driver: "json-file"
+          options:
+            max-size: "100m"
+            max-file: "5"
 
 networks:
   ml:

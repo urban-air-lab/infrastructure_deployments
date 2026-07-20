@@ -19,6 +19,11 @@ services:
       - iot
     labels:
       - "traefik.enable=false"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "5"
 
 networks:
   iot:
