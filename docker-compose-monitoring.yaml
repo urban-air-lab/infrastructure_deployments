@@ -1,6 +1,6 @@
 services:
   node_exporter:
-    image: quay.io/prometheus/node-exporter:v1.10.2
+    image: quay.io/prometheus/node-exporter:v1.12.1
     container_name: node_exporter
     restart: always
     ports:
@@ -23,7 +23,7 @@ services:
       retries: 5
 
   cadvisor:
-    image: gcr.io/cadvisor/cadvisor:v0.52.1
+    image: gcr.io/cadvisor/cadvisor:v0.55.1
     container_name: cadvisor
     restart: always
     ports:
@@ -57,7 +57,7 @@ services:
       - BALENA_API_TOKEN=${BALENA_API_TOKEN}
 
   prometheus:
-    image: docker.io/prom/prometheus:v3.6.0
+    image: docker.io/prom/prometheus:v3.13.3
     container_name: prometheus
     restart: always
     networks:
@@ -124,7 +124,7 @@ services:
       retries: 5
 
   grafana:
-    image: grafana/grafana:13.1.0-25410206825-ubuntu
+    image: grafana/grafana:13.1.5
     container_name: grafana
     restart: always
     networks:
