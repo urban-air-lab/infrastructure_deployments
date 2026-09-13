@@ -33,14 +33,7 @@ services:
       - frontend
     labels:
       - "traefik.enable=true"
-
-      # Router for dashboard on http://traefik.localhost/
-      - "traefik.http.routers.traefik-dashboard-secure.rule=Host(`traefik.${TRAEFIK_DOMAIN}`)"
-      - "traefik.http.routers.traefik-dashboard-secure.entrypoints=websecure"
-      - "traefik.http.routers.traefik-dashboard-secure.service=api@internal"
-      - "traefik.http.routers.traefik-dashboard-secure.tls=true"
-      - "traefik.http.routers.traefik-dashboard-secure.tls.certresolver=myresolver"
-
+      -
       # Shared rate limit middleware (referenced by routers in other compose files)
       - "traefik.http.middlewares.ratelimit.ratelimit.average=100"
       - "traefik.http.middlewares.ratelimit.ratelimit.period=1s"
