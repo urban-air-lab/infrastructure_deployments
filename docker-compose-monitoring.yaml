@@ -87,14 +87,6 @@ services:
       interval: 1m
       timeout: 10s
       retries: 5
-    labels:
-      - "traefik.enable=true"
-      - "traefik.docker.network=ual_infrastructure_deployments_frontend"
-
-      - "traefik.http.routers.prometheus.rule=Host(`prometheus.${TRAEFIK_DOMAIN}`)"
-      - "traefik.http.routers.prometheus.entrypoints=websecure"
-      - "traefik.http.routers.prometheus.tls=true"
-      - "traefik.http.routers.prometheus.tls.certresolver=myresolver"
 
   alertmanager:
     image: alertmanager-envsubst:v0.31.1
