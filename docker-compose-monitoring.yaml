@@ -148,7 +148,7 @@ services:
       - "traefik.http.routers.grafana.tls=true"
       - "traefik.http.routers.grafana.tls.certresolver=myresolver"
       - "traefik.http.routers.grafana.middlewares=ratelimit,hsts"
-      -
+
       # HSTS header middleware
       - "traefik.http.middlewares.hsts.headers.stsSeconds=31536000"
       - "traefik.http.middlewares.hsts.headers.stsIncludeSubdomains=true"
