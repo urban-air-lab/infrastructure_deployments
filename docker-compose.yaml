@@ -60,8 +60,6 @@ services:
     image: influxdb:2.9.1
     container_name: influxdb
     restart: always
-    ports:
-      - "8086:8086"
     networks:
       - iot
       - frontend
@@ -85,7 +83,12 @@ services:
       - "traefik.http.routers.influx-secure.entrypoints=websecure"
       - "traefik.http.routers.influx-secure.tls=true"
       - "traefik.http.routers.influx-secure.tls.certresolver=myresolver"
-      - "traefik.http.routers.influx-secure.middlewares=ratelimit"
+      - "traefik.http.routers.influx-secure.middlewares=ratelimit,hsts"
+
+      # HSTS header middleware
+      - "traefik.http.middlewares.hsts.headers.stsSeconds=31536000"
+      - "traefik.http.middlewares.hsts.headers.stsIncludeSubdomains=true"
+      - "traefik.http.middlewares.hsts.headers.forceSTSHeader=true"
     healthcheck:
           test: ["CMD", "curl", "influxdb:8086/ping"]
           interval: 1m

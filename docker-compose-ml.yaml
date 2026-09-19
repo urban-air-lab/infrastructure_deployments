@@ -81,7 +81,13 @@ services:
           - "traefik.http.routers.mlflow-secure.entrypoints=websecure"
           - "traefik.http.routers.mlflow-secure.tls=true"
           - "traefik.http.routers.mlflow-secure.tls.certresolver=myresolver"
-          - "traefik.http.routers.mlflow-secure.middlewares=ratelimit"
+
+          - "traefik.http.routers.mlflow-secure.middlewares=ratelimit,hsts"
+
+          # HSTS header middleware
+          - "traefik.http.middlewares.hsts.headers.stsSeconds=31536000"
+          - "traefik.http.middlewares.hsts.headers.stsIncludeSubdomains=true"
+          - "traefik.http.middlewares.hsts.headers.forceSTSHeader=true"
         healthcheck:
             test: [ "CMD", "curl", "http://localhost:5000/health" ]
             interval: 1m
