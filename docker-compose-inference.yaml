@@ -1,6 +1,6 @@
 services:
   inference:
-    image: ghcr.io/urban-air-lab/inference-server:latest
+    image: ghcr.io/urban-air-lab/inference-server:7439ceac65f71221a46ca5e511564a656e0cd959
     container_name: inference-server
     restart: always
     environment:

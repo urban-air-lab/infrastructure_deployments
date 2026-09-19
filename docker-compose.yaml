@@ -1,6 +1,6 @@
 services:
   lubw-client:
-    image: ghcr.io/urban-air-lab/lubw_client:latest
+    image: ghcr.io/urban-air-lab/lubw_client:2be5cc8a1f50427fd0b26e1bcf6a20ed4f55801d
     container_name: lubw-client
     restart: always
     environment:
