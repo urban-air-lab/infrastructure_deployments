@@ -53,4 +53,5 @@ jobs:
         run: |
             ssh root@91.99.65.22 "rm -rf /opt/ual/configs"
             docker -H ssh://root@91.99.65.22 system prune
+            echo "finished"
           
