@@ -8,8 +8,10 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-os.environ['MLFLOW_TRACKING_USERNAME'] = os.getenv("MLFLOW_USERNAME")
-os.environ['MLFLOW_TRACKING_PASSWORD'] = os.getenv("MLFLOW_PASSWORD")
+# password is set by configs/mlflow/credentials, which gets overwritten in cicd pipeline
+# must create bucket mlflow in s3 storage
+os.environ['MLFLOW_TRACKING_USERNAME'] = "dummy"
+os.environ['MLFLOW_TRACKING_PASSWORD'] = "dummy12345678"
 
 inputs, targets = datasets.load_iris(return_X_y=True)
 x_train, x_test, y_train, y_test = train_test_split(inputs, targets, test_size=0.2, random_state=42)
@@ -32,7 +34,7 @@ recall = recall_score(y_test, y_predict, average='micro')
 f1 = f1_score(y_test, y_predict, average='micro')
 
 mlflow.set_tracking_uri("http://localhost:5000")
-mlflow.set_experiment("Test")
+mlflow.set_experiment("test")
 
 with mlflow.start_run():
     mlflow.log_params(params)
@@ -41,7 +43,7 @@ with mlflow.start_run():
     mlflow.log_metric("recall", recall)
     mlflow.log_metric("f1", f1)
 
-    mlflow.set_tag("Traning Info", "Basic model for testing purposes")
+    mlflow.set_tag("Training Info", "Basic model for testing purposes")
 
     signature = mlflow.models.infer_signature(x_train, lr.predict(x_train))
 
