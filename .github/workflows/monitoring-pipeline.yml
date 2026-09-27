@@ -49,7 +49,8 @@ jobs:
           docker -H ssh://root@91.99.65.22 compose -p ual_infrastructure_deployments  -f docker-compose-monitoring.yaml up -d --pull always --build
           
 
-      - name: Delete Credentials
+      - name: Clean Up
         run: |
             ssh root@91.99.65.22 "rm -rf /opt/ual/configs"
+            docker -H ssh://root@91.99.65.22 system prune
           
