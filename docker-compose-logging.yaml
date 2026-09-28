@@ -16,6 +16,8 @@ services:
         echo "All done!";
     labels:
       - "traefik.enable=false"
+    networks:
+      - logging
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.15.1
