@@ -1,0 +1,56 @@
+name: "Deploy Logging Services"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy-logging-services:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v6
+
+      - name: Set up SSH
+        run: | 
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" >> ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+
+      - name: Copy configs to remote
+        run: |
+              ssh root@91.99.65.22 "mkdir -p /opt/ual"
+              rsync -az --delete \
+              ./configs \
+              root@91.99.65.22:/opt/ual/
+
+      - name: Fix filebeat config ownership
+        run: |
+              ssh root@91.99.65.22 "chown root:root /opt/ual/configs/filebeat/filebeat.yaml && chmod go-w /opt/ual/configs/filebeat/filebeat.yaml"
+
+      - name: Deploy Elasticsearch, Kibana, Filebeat
+        env:
+          TRAEFIK_DOMAIN: urbanairlab.hn
+          CONFIG_ROOT: /opt/ual
+
+          ELASTIC_PASSWORD: "${{ secrets.ELASTIC_PASSWORD }}"
+          KIBANA_PASSWORD: "${{ secrets.KIBANA_PASSWORD }}"
+
+          SMTP_HOST: "${{ secrets.SMTP_HOST }}"
+          SMTP_USER: "${{ secrets.SMTP_USER }}"
+          SMTP_AUTH: "${{ secrets.SMTP_AUTH }}"
+
+          DOCKER_BUILDKIT: 0
+          COMPOSE_DOCKER_CLI_BUILD: 0
+        run: |
+          docker -H ssh://root@91.99.65.22 compose -p ual_infrastructure_deployments  -f docker-compose-logging.yaml rm -f -s -v
+          docker -H ssh://root@91.99.65.22 compose -p ual_infrastructure_deployments  -f docker-compose-logging.yaml up -d --pull always --build
+          
+
+      - name: Clean Up
+        run: |
+            ssh root@91.99.65.22 "rm -rf /opt/ual/configs"
+            docker -H ssh://root@91.99.65.22 system prune --all --force 
+          
