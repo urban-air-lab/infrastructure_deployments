@@ -14,6 +14,8 @@ services:
         echo "Setting kibana_system password";
         until curl -s -X POST -u "elastic:${ELASTIC_PASSWORD}" -H "Content-Type: application/json" http://elasticsearch:9200/_security/user/kibana_system/_password -d "{\"password\":\"${KIBANA_PASSWORD}\"}" | grep -q "^{}"; do sleep 10; done;
         echo "All done!";
+    labels:
+      - "traefik.enable=false"
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.15.1
@@ -31,6 +33,8 @@ services:
       - xpack.security.http.ssl.enabled=false
     networks:
       - logging
+    labels:
+      - "traefik.enable=false"
 
   kibana:
     image: docker.elastic.co/kibana/kibana:8.15.1
@@ -74,6 +78,8 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - logging
+    labels:
+      - "traefik.enable=false"
 
 networks:
   logging:
