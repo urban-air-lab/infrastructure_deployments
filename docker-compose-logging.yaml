@@ -29,6 +29,8 @@ services:
       - ES_JAVA_OPTS=-Xms1g -Xmx1g  # limits elasticsearch to 1 GB of RAM
       - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
       - xpack.security.http.ssl.enabled=false
+    networks:
+      - logging
 
   kibana:
     image: docker.elastic.co/kibana/kibana:8.15.1
@@ -40,10 +42,29 @@ services:
       - ELASTICSEARCH_USERNAME=kibana_system
       - ELASTICSEARCH_PASSWORD=${KIBANA_PASSWORD}
       - TELEMETRY_ENABLED=false
+    networks:
+      - logging
+      - frontend
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=ual_infrastructure_deployments_frontend"
+
+      - "traefik.http.routers.kibana.rule=Host(`kibana.${TRAEFIK_DOMAIN}`)"
+      - "traefik.http.routers.kibana.entrypoints=websecure"
+      - "traefik.http.routers.kibana.tls=true"
+      - "traefik.http.routers.kibana.tls.certresolver=myresolver"
+      - "traefik.http.routers.kibana.middlewares=ratelimit,hsts"
+
+      # HSTS header middleware
+      - "traefik.http.middlewares.hsts.headers.stsSeconds=31536000"
+      - "traefik.http.middlewares.hsts.headers.stsIncludeSubdomains=true"
+      - "traefik.http.middlewares.hsts.headers.forceSTSHeader=true"
 
   filebeat:
     image: docker.elastic.co/beats/filebeat:8.15.1
     container_name: filebeat
+    command:
+      - -strict.perms=false
     user: root # needs root user to access all docker log files
     environment:
       - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
@@ -51,6 +72,12 @@ services:
       - ${CONFIG_ROOT}/configs/filebeat/filebeat.yaml:/usr/share/filebeat/filebeat.yml:ro
       - /var/lib/docker:/var/lib/docker:ro
       - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - logging
+
+networks:
+  logging:
+  frontend:
 
 volumes:
    esdata:
