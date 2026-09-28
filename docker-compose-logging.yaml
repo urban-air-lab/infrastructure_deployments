@@ -10,9 +10,19 @@ services:
       - -c
       - |
         echo "Waiting for Elasticsearch availability";
-        until curl -s http://elasticsearch:9200 | grep -q "missing authentication credentials"; do sleep 30; done;
+        until curl http://elasticsearch:9200 | grep -q "missing authentication credentials"; do sleep 30; done;
         echo "Setting kibana_system password";
-        until curl -s -X POST -u "elastic:${ELASTIC_PASSWORD}" -H "Content-Type: application/json" http://elasticsearch:9200/_security/user/kibana_system/_password -d "{\"password\":\"${KIBANA_PASSWORD}\"}" | grep -q "^{}"; do sleep 10; done;
+        until
+          response=$$(curl -s -X POST \
+            -u "elastic:${ELASTIC_PASSWORD}" \
+            -H "Content-Type: application/json" \
+            http://elasticsearch:9200/_security/user/kibana_system/_password \
+            -d "{\"password\":\"${KIBANA_PASSWORD}\"}");
+          echo "Response: $$response";
+          echo "$$response" | grep -q "^{}";
+        do
+          sleep 10;
+        done;
         echo "All done!";
     labels:
       - "traefik.enable=false"
