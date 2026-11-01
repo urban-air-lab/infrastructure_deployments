@@ -5,3 +5,5 @@
 /data
 /configs/mosquitto/passwordfile
 __pycache__/
+
+scripts_backup/*.tar.gz
