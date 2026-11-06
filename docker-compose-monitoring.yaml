@@ -139,6 +139,8 @@ services:
       - GF_SMTP_HOST=${SMTP_HOST}
       - GF_SMTP_USER=${SMTP_USER}
       - GF_SMTP_PASSWORD=${SMTP_AUTH}
+      - GF_SMTP_FROM_ADDRESS=post@tobias-weiland.eu
+      - F_SMTP_FROM_NAME=UrbanAirLab Alerts
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=ual_infrastructure_deployments_frontend"
