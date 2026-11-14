@@ -21,14 +21,14 @@ jobs:
 
       - name: Copy configs to remote
         run: |
-              ssh root@91.99.65.22 "mkdir -p /opt/ual"
+              ssh deploy@91.99.65.22 "mkdir -p /opt/ual"
               rsync -az --delete \
               ./configs \
-              root@91.99.65.22:/opt/ual/
+              deploy@91.99.65.22:/opt/ual/
 
       - name: Fix filebeat config ownership
         run: |
-              ssh root@91.99.65.22 "chown root:root /opt/ual/configs/filebeat/filebeat.yaml && chmod go-w /opt/ual/configs/filebeat/filebeat.yaml"
+              ssh deploy@91.99.65.22 "chown deploy:deploy /opt/ual/configs/filebeat/filebeat.yaml && chmod go-w /opt/ual/configs/filebeat/filebeat.yaml"
 
       - name: Deploy Elasticsearch, Kibana, Filebeat
         env:
@@ -45,12 +45,12 @@ jobs:
           DOCKER_BUILDKIT: 0
           COMPOSE_DOCKER_CLI_BUILD: 0
         run: |
-          docker -H ssh://root@91.99.65.22 compose -p ual_infrastructure_deployments  -f docker-compose-logging.yaml rm -f -s -v
-          docker -H ssh://root@91.99.65.22 compose -p ual_infrastructure_deployments  -f docker-compose-logging.yaml up -d --pull always --build
+          docker -H ssh://deploy@91.99.65.22 compose -p ual_infrastructure_deployments  -f docker-compose-logging.yaml rm -f -s -v
+          docker -H ssh://deploy@91.99.65.22 compose -p ual_infrastructure_deployments  -f docker-compose-logging.yaml up -d --pull always --build
           
 
       - name: Clean Up
         run: |
-            ssh root@91.99.65.22 "rm -rf /opt/ual/configs"
-            docker -H ssh://root@91.99.65.22 system prune --all --force 
+            ssh deploy@91.99.65.22 "rm -rf /opt/ual/configs"
+            docker -H ssh://deploy@91.99.65.22 system prune --all --force 
           
