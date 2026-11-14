@@ -21,19 +21,19 @@ jobs:
 
       - name: Copy configs to remote
         run: |
-              ssh deploy@91.99.65.22 "mkdir -p /opt/ual"
+              ssh deploy@91.99.65.22 "mkdir -p /home/deploy/opt/ual"
               rsync -az --delete \
               ./configs \
-              deploy@91.99.65.22:/opt/ual/
+              deploy@91.99.65.22:/home/deploy/opt/ual/
 
       - name: Fix filebeat config ownership
         run: |
-              ssh deploy@91.99.65.22 "chown deploy:deploy /opt/ual/configs/filebeat/filebeat.yaml && chmod go-w /opt/ual/configs/filebeat/filebeat.yaml"
+              ssh deploy@91.99.65.22 "chown deploy:deploy /home/deploy/opt/ual/configs/filebeat/filebeat.yaml && chmod go-w /home/deploy/opt/ual/configs/filebeat/filebeat.yaml"
 
       - name: Deploy Elasticsearch, Kibana, Filebeat
         env:
           TRAEFIK_DOMAIN: urbanairlab.hn
-          CONFIG_ROOT: /opt/ual
+          CONFIG_ROOT: /home/deploy/opt/ual
 
           ELASTIC_PASSWORD: "${{ secrets.ELASTIC_PASSWORD }}"
           KIBANA_PASSWORD: "${{ secrets.KIBANA_PASSWORD }}"
@@ -51,6 +51,6 @@ jobs:
 
       - name: Clean Up
         run: |
-            ssh deploy@91.99.65.22 "rm -rf /opt/ual/configs"
+            ssh deploy@91.99.65.22 "rm -rf /home/deploy/opt/ual/configs"
             docker -H ssh://deploy@91.99.65.22 system prune --all --force 
           
