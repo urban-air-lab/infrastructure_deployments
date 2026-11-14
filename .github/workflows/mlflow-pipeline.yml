@@ -30,17 +30,17 @@ jobs:
 
       - name: Copy config to remote
         run: |
-              ssh root@91.99.65.22 "mkdir -p /opt/ual/configs/mlflow"
+              ssh deploy@91.99.65.22 "mkdir -p /home/deploy/opt/ual/configs/mlflow"
               rsync -az --delete \
               ./configs/mlflow/ \
-              root@91.99.65.22:/opt/ual/configs/mlflow
+              deploy@91.99.65.22:/home/deploy/opt/ual/configs/mlflow
           
-              ssh root@91.99.65.22 "chmod 644 /opt/ual/configs/mlflow/credentials"
+              ssh deploy@91.99.65.22 "chmod 644 /home/deploy/opt/ual/configs/mlflow/credentials"
 
       - name: Deploy MLFLow and Databases
         env:
           TRAEFIK_DOMAIN: urbanairlab.hn
-          CONFIG_ROOT: /opt/ual
+          CONFIG_ROOT: /home/deploy/opt/ual
 
           MLFLOW_URL: "${{ secrets.MLFLOW_URL }}"
           MLFLOW_FLASK_SERVER_SECRET_KEY: "${{ secrets.MLFLOW_FLASK_SERVER_SECRET_KEY }}"
@@ -59,13 +59,13 @@ jobs:
           DOCKER_BUILDKIT: 0
           COMPOSE_DOCKER_CLI_BUILD: 0
         run: |
-          docker -H ssh://root@91.99.65.22 compose -p ual_infrastructure_deployments  -f docker-compose-ml.yaml rm -f -s -v
-          docker -H ssh://root@91.99.65.22 compose -p ual_infrastructure_deployments  -f docker-compose-ml.yaml up -d --pull always --build
+          docker -H ssh://deploy@91.99.65.22 compose -p ual_infrastructure_deployments  -f docker-compose-ml.yaml rm -f -s -v
+          docker -H ssh://deploy@91.99.65.22 compose -p ual_infrastructure_deployments  -f docker-compose-ml.yaml up -d --pull always --build
 
       - name: Clean Up
         run: |
-            ssh root@91.99.65.22 "rm -rf /opt/ual/configs/mlflow"
-            docker -H ssh://root@91.99.65.22 system prune --all --force 
+            ssh deploy@91.99.65.22 "rm -rf /home/deploy/opt/ual/configs/mlflow"
+            docker -H ssh://deploy@91.99.65.22 system prune --all --force 
 
           
           

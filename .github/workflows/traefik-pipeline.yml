@@ -23,11 +23,11 @@ jobs:
           
           
           
-          docker -H ssh://root@91.99.65.22 compose -p ual_infrastructure_deployments -f docker-compose-traefik.yaml rm -f -s -v
-          docker -H ssh://root@91.99.65.22 compose -p ual_infrastructure_deployments -f docker-compose-traefik.yaml up -d --pull always
+          docker -H ssh://deploy@91.99.65.22 compose -p ual_infrastructure_deployments -f docker-compose-traefik.yaml rm -f -s -v
+          docker -H ssh://deploy@91.99.65.22 compose -p ual_infrastructure_deployments -f docker-compose-traefik.yaml up -d --pull always
 
       - name: Clean Up
         run: |
-            docker -H ssh://root@91.99.65.22 system prune --all --force 
+            docker -H ssh://deploy@91.99.65.22 system prune --all --force 
           
           
