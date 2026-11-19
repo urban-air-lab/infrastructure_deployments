@@ -88,5 +88,6 @@ jobs:
 
       - name: Clean Up
         run: |
+            ssh deploy@91.99.65.22 "rm -rf /home/deploy/opt/ual/configs"
             docker -H ssh://root@91.99.65.22 system prune --all --force 
           
