@@ -42,12 +42,12 @@ jobs:
 
       - name: Copy configs to remote
         run: |
-              ssh deploy@91.99.65.22 "mkdir -p /home/deploy/opt/ual"
+              ssh root@91.99.65.22 "mkdir -p /home/deploy/opt/ual"
               rsync -az --delete \
               ./configs \
-              deploy@91.99.65.22:/home/deploy/opt/ual/
+              root@91.99.65.22:/home/deploy/opt/ual/
           
-              ssh deploy@91.99.65.22 "chmod 644 /home/deploy/opt/ual/configs/mosquitto/passwordfile"
+              ssh root@91.99.65.22 "chmod 644 /home/deploy/opt/ual/configs/mosquitto/passwordfile"
 
 
       - name: Log in to GitHub Container Registry
@@ -82,11 +82,11 @@ jobs:
           MQTT_SERVER: "${{ secrets.MQTT_SERVER }}"
           MQTT_PORT: "${{ secrets.MQTT_PORT }}"
         run: |
-          docker -H ssh://deploy@91.99.65.22 compose -p ual_infrastructure_deployments  -f docker-compose.yaml rm -f -s -v
-          docker -H ssh://deploy@91.99.65.22 compose -p ual_infrastructure_deployments  -f docker-compose.yaml up -d --pull always
+          docker -H ssh://root@91.99.65.22 compose -p ual_infrastructure_deployments  -f docker-compose.yaml rm -f -s -v
+          docker -H ssh://root@91.99.65.22 compose -p ual_infrastructure_deployments  -f docker-compose.yaml up -d --pull always
           
 
       - name: Clean Up
         run: |
-            docker -H ssh://deploy@91.99.65.22 system prune --all --force 
+            docker -H ssh://root@91.99.65.22 system prune --all --force 
           
