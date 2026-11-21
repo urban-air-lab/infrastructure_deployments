@@ -21,15 +21,15 @@ jobs:
 
       - name: Copy configs to remote
         run: |
-              ssh deploy@91.99.65.22 "mkdir -p /home/deploy/opt/ual"
+              ssh root@91.99.65.22 "mkdir -p /opt/ual"
               rsync -az --delete \
               ./configs \
-              deploy@91.99.65.22:/home/deploy/opt/ual/
+              root@91.99.65.22:/opt/ual/
 
       - name: Deploy Grafana, Prometheus, Node-Exporter, Cadvisor, Balena-Exporter
         env:
           TRAEFIK_DOMAIN: urbanairlab.hn
-          CONFIG_ROOT: /home/deploy/opt/ual
+          CONFIG_ROOT: /opt/ual
 
           DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: "${{ secrets.DOCKER_INFLUXDB_INIT_ADMIN_TOKEN }}"
 
@@ -45,12 +45,12 @@ jobs:
           DOCKER_BUILDKIT: 0
           COMPOSE_DOCKER_CLI_BUILD: 0
         run: |
-          docker -H ssh://deploy@91.99.65.22 compose -p ual_infrastructure_deployments  -f docker-compose-monitoring.yaml rm -f -s -v
-          docker -H ssh://deploy@91.99.65.22 compose -p ual_infrastructure_deployments  -f docker-compose-monitoring.yaml up -d --pull always --build
+          docker -H ssh://root@91.99.65.22 compose -p ual_infrastructure_deployments  -f docker-compose-monitoring.yaml rm -f -s -v
+          docker -H ssh://root@91.99.65.22 compose -p ual_infrastructure_deployments  -f docker-compose-monitoring.yaml up -d --pull always --build
           
 
       - name: Clean Up
         run: |
-            ssh deploy@91.99.65.22 "rm -rf /home/deploy/opt/ual/configs"
-            docker -H ssh://deploy@91.99.65.22 system prune --all --force 
+            ssh root@91.99.65.22 "rm -rf /opt/ual/configs"
+            docker -H ssh://root@91.99.65.22 system prune --all --force 
           

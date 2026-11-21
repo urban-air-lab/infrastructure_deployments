@@ -42,12 +42,12 @@ jobs:
 
       - name: Copy configs to remote
         run: |
-              ssh root@91.99.65.22 "mkdir -p /home/deploy/opt/ual"
+              ssh root@91.99.65.22 "mkdir -p /opt/ual"
               rsync -az --delete \
               ./configs \
-              root@91.99.65.22:/home/deploy/opt/ual/
+              root@91.99.65.22:/opt/ual/
           
-              ssh root@91.99.65.22 "chmod 644 /home/deploy/opt/ual/configs/mosquitto/passwordfile"
+              ssh root@91.99.65.22 "chmod 644 /opt/ual/configs/mosquitto/passwordfile"
 
 
       - name: Log in to GitHub Container Registry
@@ -61,7 +61,7 @@ jobs:
       - name: Deploy Influx, MQTT, Telegraf and Grafana
         env:
           TRAEFIK_DOMAIN: urbanairlab.hn
-          CONFIG_ROOT: /home/deploy/opt/ual
+          CONFIG_ROOT: /opt/ual
 
           INFLUX_URL: "${{ secrets.INFLUX_URL }}"
           INFLUX_ORG: "${{ secrets.INFLUX_ORG }}"
@@ -88,6 +88,6 @@ jobs:
 
       - name: Clean Up
         run: |
-            ssh deploy@91.99.65.22 "rm -rf /home/deploy/opt/ual/configs"
+            ssh root@91.99.65.22 "rm -rf /opt/ual/configs"
             docker -H ssh://root@91.99.65.22 system prune --all --force 
           
